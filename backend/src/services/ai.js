@@ -69,7 +69,7 @@ async function callGemini(systemPrompt, userMessage) {
   if (!apiKey) throw new Error('GEMINI_API_KEY not set');
 
   const res = await axios.post(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
     {
       contents: [
         {
