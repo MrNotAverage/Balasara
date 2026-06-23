@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const getWaBase = () =>
-  `https://graph.facebook.com/v21.0/${process.env.WABA_PHONE_ID}/messages`;
+  `https://graph.facebook.com/v25.0/${process.env.WABA_PHONE_ID}/messages`;
 const HEADERS = () => ({
   Authorization: `Bearer ${process.env.WABA_ACCESS_TOKEN}`,
   'Content-Type': 'application/json',
@@ -14,18 +14,18 @@ async function sendText(to, body, attempt = 1) {
       { messaging_product: 'whatsapp', to, type: 'text', text: { body } },
       { headers: HEADERS(), timeout: 8000 }
     );
-    console.log(`[WA] Sent to ${to}: ${body.slice(0, 60)}...`);
+    console.log(`[WA] Sent to ${to}: ${body.slice(0, 60)}`);
+    console.log(`[WA] Meta response:`, JSON.stringify(res.data));
     return res.data;
   } catch (err) {
     const status = err.response?.status;
+    console.error(`[WA] FAILED to send to ${to} (HTTP ${status}):`, JSON.stringify(err.response?.data || err.message));
     if (status === 429 && attempt <= 3) {
-      // Rate limit — exponential backoff
       const delay = attempt * 60000;
       console.warn(`[WA] Rate limited. Retry ${attempt}/3 in ${delay / 1000}s`);
       await sleep(delay);
       return sendText(to, body, attempt + 1);
     }
-    console.error(`[WA] Failed to send to ${to}:`, err.response?.data || err.message);
     throw err;
   }
 }
