@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Balasara</title>
+  <meta name="description" content="Balasara Dashboard — Kelola percakapan WhatsApp, kontak, pesanan, dan statistik bot kamu." />
+  <link rel="icon" type="image/png" href="img/icon_transparent.png" />
+  <link rel="stylesheet" href="css/brand.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body class="dashboard-body">
+
+  <!-- ══════════════════════════════════════════════════════
+       SIDEBAR
+  ══════════════════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Dashboard navigation">
+
+    <!-- Header / Logo -->
+    <div class="sidebar-header">
+      <img src="img/icon_transparent.png" alt="Balasara Logo Icon" class="sidebar-icon" aria-hidden="true" />
+      <img src="img/text_transparent.png" alt="Balasara" class="sidebar-text-img" />
+    </div>
+
+    <!-- Nav -->
+    <nav class="sidebar-nav" aria-label="Main menu">
+      <div class="sidebar-section-label">Menu Utama</div>
+
+      <a class="nav-item active" data-panel="panelOverview" href="#" role="button" aria-current="page" id="navOverview">
+        <div class="nav-icon"><i class="ti ti-layout-dashboard" aria-hidden="true"></i></div>
+        <span class="nav-label">Beranda</span>
+        <span class="tooltip">Beranda</span>
+      </a>
+
+      <a class="nav-item" data-panel="panelConversations" href="#" role="button" id="navConversations">
+        <div class="nav-icon"><i class="ti ti-message-circle" aria-hidden="true"></i></div>
+        <span class="nav-label">Percakapan</span>
+        <span class="nav-badge" aria-label="3 unread">3</span>
+        <span class="tooltip">Percakapan</span>
+      </a>
+
+      <a class="nav-item" data-panel="panelContacts" href="#" role="button" id="navContacts">
+        <div class="nav-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+        <span class="nav-label">Kontak</span>
+        <span class="tooltip">Kontak</span>
+      </a>
+
+      <a class="nav-item" data-panel="panelDeals" href="#" role="button" id="navDeals">
+        <div class="nav-icon"><i class="ti ti-shopping-cart" aria-hidden="true"></i></div>
+        <span class="nav-label">Pesanan</span>
+        <span class="tooltip">Pesanan</span>
+      </a>
+
+      <div class="sidebar-section-label" style="margin-top:8px;">Analitik</div>
+
+      <a class="nav-item" data-panel="panelAnalytics" href="#" role="button" id="navAnalytics">
+        <div class="nav-icon"><i class="ti ti-chart-bar" aria-hidden="true"></i></div>
+        <span class="nav-label">Statistik</span>
+        <span class="tooltip">Statistik</span>
+      </a>
+
+      <div class="sidebar-section-label" style="margin-top:8px;">Konfigurasi</div>
+
+      <a class="nav-item" data-panel="panelBot" href="#" role="button" id="navBot">
+        <div class="nav-icon"><i class="ti ti-robot" aria-hidden="true"></i></div>
+        <span class="nav-label">Pengaturan Bot</span>
+        <span class="tooltip">Bot</span>
+      </a>
+
+      <a class="nav-item" data-panel="panelSettings" href="#" role="button" id="navSettings">
+        <div class="nav-icon"><i class="ti ti-settings" aria-hidden="true"></i></div>
+        <span class="nav-label">Pengaturan</span>
+        <span class="tooltip">Pengaturan</span>
+      </a>
+    </nav>
+
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <div class="sidebar-bot-status" aria-live="polite">
+        <div class="bot-status-dot" aria-hidden="true"></div>
+        <div class="bot-status-text">
+          <span class="bot-status-label">Bot Aktif</span>
+          <span class="bot-status-sub">08.00–22.00 WIB</span>
+        </div>
+      </div>
+      <div class="sidebar-toggle" id="sidebarToggle" role="button" aria-label="Toggle sidebar" tabindex="0">
+        <i class="ti ti-layout-sidebar-left-collapse" aria-hidden="true"></i>
+        <span class="sidebar-toggle-label">Tutup Sidebar</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════════════════════════ -->
+  <div class="dashboard-main" id="dashMain">
+
+    <!-- Top Bar -->
+    <header class="topbar" role="banner">
+      <div class="topbar-left">
+        <div>
+          <div class="topbar-page-title" id="topbarTitle">Beranda</div>
+          <div class="topbar-breadcrumb">Balasara / <span id="breadcrumbCurrent">Overview</span></div>
+        </div>
+        <div class="topbar-search" role="search">
+          <i class="ti ti-search" aria-hidden="true"></i>
+          <input type="search" placeholder="Cari percakapan, kontak..." aria-label="Search dashboard" id="dashSearch" />
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span style="font-family:var(--font-inter);font-size:12px;color:var(--g-muted);" id="liveClock" aria-live="polite"></span>
+        <a href="index.html" class="topbar-icon-btn" title="Lihat Landing Page" aria-label="View landing page">
+          <i class="ti ti-home" aria-hidden="true"></i>
+        </a>
+        <button class="topbar-icon-btn" id="notifBtn" title="Notifikasi" aria-label="Notifications (3 new)">
+          <i class="ti ti-bell" aria-hidden="true"></i>
+          <span class="notif-dot" aria-hidden="true"></span>
+        </button>
+        <button class="topbar-icon-btn" title="Bantuan" aria-label="Help">
+          <i class="ti ti-help-circle" aria-hidden="true"></i>
+        </button>
+        <div class="topbar-avatar" role="button" tabindex="0" aria-label="User menu — Toko Berkah Jaya">TB</div>
+      </div>
+    </header>
+
+    <!-- ════════════════════════════════════════════════════
+         PAGE PANELS
+    ════════════════════════════════════════════════════════ -->
+    <main class="page-content" id="pageContent">
+
+      <!-- ╔══════════════════════════════════════════════╗
+           ║  OVERVIEW PANEL (default)                   ║
+           ╚══════════════════════════════════════════════╝ -->
+      <div class="panel active" id="panelOverview">
+
+        <!-- Stats row -->
+        <div class="stats-row" role="list" aria-label="Key metrics">
+          <div class="stat-card green" role="listitem">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Total Kontak</span>
+              <div class="stat-card-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+            </div>
+            <div class="stat-card-value" data-dash-counter data-target="1284" aria-label="1284 total contacts">0</div>
+            <div class="stat-card-delta up">
+              <i class="ti ti-trending-up" aria-hidden="true"></i>
+              +24 minggu ini
+            </div>
+          </div>
+          <div class="stat-card coral" role="listitem">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Pesan Hari Ini</span>
+              <div class="stat-card-icon"><i class="ti ti-message-dots" aria-hidden="true"></i></div>
+            </div>
+            <div class="stat-card-value" data-dash-counter data-target="347" aria-label="347 messages today">0</div>
+            <div class="stat-card-delta up">
+              <i class="ti ti-trending-up" aria-hidden="true"></i>
+              +12% vs kemarin
+            </div>
+          </div>
+          <div class="stat-card amber" role="listitem">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Konversi Bulan Ini</span>
+              <div class="stat-card-icon"><i class="ti ti-shopping-cart" aria-hidden="true"></i></div>
+            </div>
+            <div class="stat-card-value" data-dash-counter data-target="89" aria-label="89 conversions this month">0</div>
+            <div class="stat-card-delta up">
+              <i class="ti ti-trending-up" aria-hidden="true"></i>
+              +5 vs bulan lalu
+            </div>
+          </div>
+          <div class="stat-card purple" role="listitem">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Eskalasi Aktif</span>
+              <div class="stat-card-icon"><i class="ti ti-alert-triangle" aria-hidden="true"></i></div>
+            </div>
+            <div class="stat-card-value" data-dash-counter data-target="3" aria-label="3 active escalations">0</div>
+            <div class="stat-card-delta down">
+              <i class="ti ti-trending-down" aria-hidden="true"></i>
+              -2 vs kemarin
+            </div>
+          </div>
+        </div>
+
+        <!-- Row: Conversations + Intent chart -->
+        <div class="grid-2">
+          <!-- Recent conversations -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title">
+                <i class="ti ti-message-circle" aria-hidden="true"></i>
+                Percakapan Terbaru
+              </div>
+              <a href="#" class="dash-card-action" data-panel="panelConversations" aria-label="View all conversations">
+                Lihat semua <i class="ti ti-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="conv-list" role="list">
+              <div class="conv-item" role="listitem">
+                <div class="conv-avatar green" aria-hidden="true">BS</div>
+                <div class="conv-info">
+                  <div class="conv-name">Budi Santoso</div>
+                  <div class="conv-preview">Oke kak! Pesanan dikonfirmasi 📦</div>
+                </div>
+                <div class="conv-meta">
+                  <span class="conv-time">10:24</span>
+                  <span class="badge badge-purple" style="font-size:10px;">Order</span>
+                </div>
+              </div>
+              <div class="conv-item" role="listitem">
+                <div class="conv-avatar coral" aria-hidden="true">SR</div>
+                <div class="conv-info">
+                  <div class="conv-name">Siti Rahayu</div>
+                  <div class="conv-preview">Sudah kami eskalasi ke tim ⚠️</div>
+                </div>
+                <div class="conv-meta">
+                  <span class="conv-time">09:16</span>
+                  <span class="badge badge-coral" style="font-size:10px;">Eskalasi</span>
+                </div>
+              </div>
+              <div class="conv-item" role="listitem">
+                <div class="conv-avatar amber" aria-hidden="true">AW</div>
+                <div class="conv-info">
+                  <div class="conv-name">Andi Wijaya</div>
+                  <div class="conv-preview">Halo kak Andi! Toko buka 08–22 WIB 😊</div>
+                </div>
+                <div class="conv-meta">
+                  <span class="conv-time">11:32</span>
+                  <span class="badge badge-dark" style="font-size:10px;">Info</span>
+                </div>
+              </div>
+              <div class="conv-item" role="listitem">
+                <div class="conv-avatar purple" aria-hidden="true">DL</div>
+                <div class="conv-info">
+                  <div class="conv-name">Dewi Lestari</div>
+                  <div class="conv-preview">Pesanan ORD-2901 dikirim via JNE ✅</div>
+                </div>
+                <div class="conv-meta">
+                  <span class="conv-time">08:47</span>
+                  <span class="badge badge-amber" style="font-size:10px;">Follow-up</span>
+                </div>
+              </div>
+              <div class="conv-item" role="listitem">
+                <div class="conv-avatar teal" aria-hidden="true">RH</div>
+                <div class="conv-info">
+                  <div class="conv-name">Rudi Hermawan</div>
+                  <div class="conv-preview">Celana jeans mulai Rp 185.000 😊</div>
+                </div>
+                <div class="conv-meta">
+                  <span class="conv-time">12:10</span>
+                  <span class="badge badge-green" style="font-size:10px;">Harga</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Intent distribution chart -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title">
+                <i class="ti ti-chart-donut" aria-hidden="true"></i>
+                Distribusi Intent
+              </div>
+              <span class="badge badge-green" style="font-size:11px;">Hari Ini</span>
+            </div>
+            <div class="dash-card-body">
+              <div class="intent-chart-wrap">
+                <svg id="intentDonut" width="120" height="120" viewBox="0 0 120 120" class="donut-svg" role="img" aria-label="Intent distribution donut chart">
+                  <!-- Rendered by JS -->
+                </svg>
+                <div class="intent-legend" id="intentLegend" role="list" aria-label="Intent legend">
+                  <!-- Rendered by JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row: Recent deals -->
+        <div class="dash-card" style="margin-bottom:0;">
+          <div class="dash-card-header">
+            <div class="dash-card-title">
+              <i class="ti ti-shopping-cart" aria-hidden="true"></i>
+              Pesanan Terbaru (Google Sheets Deals)
+            </div>
+            <a href="#" class="dash-card-action" aria-label="View all orders">
+              Lihat semua <i class="ti ti-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div class="dash-card-body">
+            <table class="deals-table" role="table" aria-label="Recent orders">
+              <thead>
+                <tr>
+                  <th scope="col">Pelanggan</th>
+                  <th scope="col">Nomor WA</th>
+                  <th scope="col">Produk</th>
+                  <th scope="col">Waktu</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Budi Santoso</td>
+                  <td>+62 812-3456-7890</td>
+                  <td>Kaos Putih L × 5</td>
+                  <td>10:22 WIB</td>
+                  <td><span class="badge badge-purple">Terkonversi</span></td>
+                </tr>
+                <tr>
+                  <td>Fajar Nugraha</td>
+                  <td>+62 819-8765-4321</td>
+                  <td>Kemeja Batik Parang × 2</td>
+                  <td>09:44 WIB</td>
+                  <td><span class="badge badge-amber">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Maya Kusuma</td>
+                  <td>+62 831-2345-6789</td>
+                  <td>Celana Jeans Slim × 1</td>
+                  <td>08:15 WIB</td>
+                  <td><span class="badge badge-green">Selesai</span></td>
+                </tr>
+                <tr>
+                  <td>Hendra Saputra</td>
+                  <td>+62 857-3456-7890</td>
+                  <td>Kaos Hitam XL × 3</td>
+                  <td>07:58 WIB</td>
+                  <td><span class="badge badge-green">Selesai</span></td>
+                </tr>
+                <tr>
+                  <td>Lia Permata</td>
+                  <td>+62 878-2109-8765</td>
+                  <td>Kemeja Putih M × 4</td>
+                  <td>Kemarin</td>
+                  <td><span class="badge badge-green">Selesai</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /panelOverview -->
+
+
+      <!-- ╔══════════════════════════════════════════════╗
+           ║  CONVERSATIONS PANEL                        ║
+           ╚══════════════════════════════════════════════╝ -->
+      <div class="panel" id="panelConversations">
+        <div class="chat-layout">
+
+          <!-- Chat sidebar — contact list -->
+          <aside class="chat-sidebar" aria-label="Contact list">
+            <div class="chat-sidebar-header">
+              <div class="chat-sidebar-title">Percakapan</div>
+              <div class="chat-search" role="search">
+                <i class="ti ti-search" aria-hidden="true"></i>
+                <input type="search" placeholder="Cari nama atau nomor..." aria-label="Search contacts" />
+              </div>
+            </div>
+
+            <div class="chat-filter-tabs" role="tablist" aria-label="Filter conversations">
+              <button class="chat-filter-tab active" role="tab" aria-selected="true">Semua</button>
+              <button class="chat-filter-tab" role="tab">Aktif</button>
+              <button class="chat-filter-tab" role="tab">Eskalasi</button>
+              <button class="chat-filter-tab" role="tab">Selesai</button>
+            </div>
+
+            <div class="chat-contact-list" role="list">
+              <div class="conv-item" data-chat="budi" role="listitem" tabindex="0" aria-label="Chat with Budi Santoso">
+                <div class="conv-avatar green" aria-hidden="true">BS</div>
+                <div class="conv-info">
+                  <div class="conv-name">Budi Santoso</div>
+                  <div class="conv-preview">Oke kak! Pesanan dikonfirmasi...</div>
+                </div>
+                <div class="conv-meta">
+                  <span class="conv-time">10:24</span>
+                </div>
+              </div>
+              <div class="conv-item" data-chat="siti" role="listitem" tabindex="0" aria-label="Chat with Siti Rahayu — 2 unread">
+                <div class="conv-avatar coral" aria-hidden="true">SR</div>
+                <div class="conv-info">
+                  <div class="conv-name">Siti Rahayu</div>
+                  <div class="conv-preview">Barang yang saya terima rusak!</div>
+                </div>
+                <div class="conv-meta">
+                  <span class="conv-time">09:16</span>
+                  <span class="conv-unread" aria-label="2 unread messages">2</span>
+                </div>
+              </div>
+              <div class="conv-item" data-chat="andi" role="listitem" tabindex="0" aria-label="Chat with Andi Wijaya">
+                <div class="conv-avatar amber" aria-hidden="true">AW</div>
+                <div class="conv-info">
+                  <div class="conv-name">Andi Wijaya</div>
+                  <div class="conv-preview">Ada kemeja batik gak?</div>
+                </div>
+                <div class="conv-meta">
+                  <span class="conv-time">11:32</span>
+                  <span class="conv-unread" aria-label="1 unread message">1</span>
+                </div>
+              </div>
+              <div class="conv-item" data-chat="dewi" role="listitem" tabindex="0" aria-label="Chat with Dewi Lestari">
+                <div class="conv-avatar purple" aria-hidden="true">DL</div>
+                <div class="conv-info">
+                  <div class="conv-name">Dewi Lestari</div>
+                  <div class="conv-preview">Pesanan ORD-2901 sudah dikirim...</div>
+                </div>
+                <div class="conv-meta">
+                  <span class="conv-time">08:47</span>
+                </div>
+              </div>
+              <div class="conv-item" data-chat="rudi" role="listitem" tabindex="0" aria-label="Chat with Rudi Hermawan">
+                <div class="conv-avatar teal" aria-hidden="true">RH</div>
+                <div class="conv-info">
+                  <div class="conv-name">Rudi Hermawan</div>
+                  <div class="conv-preview">Harga celana jeans pria berapa?</div>
+                </div>
+                <div class="conv-meta">
+                  <span class="conv-time">12:10</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Chat main -->
+          <section class="chat-main" aria-label="Chat window">
+            <!-- Chat header -->
+            <div class="chat-main-header">
+              <div class="chat-contact-info">
+                <div class="conv-avatar green" id="chatContactAvatar" aria-hidden="true">--</div>
+                <div>
+                  <div class="chat-contact-name" id="chatContactName">Pilih percakapan</div>
+                  <div class="chat-contact-phone" id="chatContactPhone">—</div>
+                </div>
+                <span class="badge badge-green" id="chatStageBadge">—</span>
+              </div>
+              <div class="chat-actions">
+                <button class="bot-toggle-chip" id="botToggleChip" aria-label="Toggle bot on/off">
+                  <span class="bot-status-dot" style="width:7px;height:7px;border-radius:50%;background:var(--g-lime);animation:pulse 2s infinite;" aria-hidden="true"></span>
+                  Bot Aktif
+                </button>
+                <button class="btn btn-danger btn-sm" id="escalateBtn" aria-label="Escalate to human agent">
+                  <i class="ti ti-alert-triangle" aria-hidden="true"></i>
+                  Eskalasi
+                </button>
+                <button class="topbar-icon-btn" title="Info kontak" aria-label="Contact info">
+                  <i class="ti ti-info-circle" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Messages -->
+            <div class="chat-messages" id="chatMessagesArea" aria-live="polite" aria-label="Chat messages">
+              <div class="empty-state">
+                <i class="ti ti-message-circle" aria-hidden="true"></i>
+                <p>Pilih percakapan dari daftar untuk mulai membaca pesan.</p>
+              </div>
+            </div>
+
+            <!-- Input bar -->
+            <div class="chat-input-bar">
+              <button class="topbar-icon-btn" title="Lampiran" aria-label="Add attachment">
+                <i class="ti ti-paperclip" aria-hidden="true"></i>
+              </button>
+              <textarea
+                class="chat-input"
+                id="chatInput"
+                rows="1"
+                placeholder="Ketik pesan manual..."
+                aria-label="Type a message"
+              ></textarea>
+              <button class="chat-send-btn" id="chatSendBtn" aria-label="Send message">
+                <i class="ti ti-send" aria-hidden="true"></i>
+              </button>
+            </div>
+          </section>
+        </div>
+      </div><!-- /panelConversations -->
+
+
+      <!-- ╔══════════════════════════════════════════════╗
+           ║  CONTACTS PANEL                             ║
+           ╚══════════════════════════════════════════════╝ -->
+      <div class="panel" id="panelContacts">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div class="dash-card-title">
+              <i class="ti ti-users" aria-hidden="true"></i>
+              Semua Kontak
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span class="badge badge-green">1.284 total</span>
+              <button class="btn btn-primary btn-sm">
+                <i class="ti ti-download" aria-hidden="true"></i>
+                Export Sheets
+              </button>
+            </div>
+          </div>
+          <div class="dash-card-body" style="padding:0;">
+            <table class="deals-table" style="padding:0 20px;" role="table" aria-label="All contacts">
+              <thead>
+                <tr style="padding:0 20px;">
+                  <th style="padding:14px 20px;" scope="col">Nama</th>
+                  <th scope="col">Nomor WA</th>
+                  <th scope="col">Stage</th>
+                  <th scope="col">Intent Terakhir</th>
+                  <th scope="col">Terakhir Aktif</th>
+                  <th scope="col">Eskalasi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding-left:20px;font-family:var(--font-jakarta);font-weight:700;color:var(--g-dark);">Budi Santoso</td>
+                  <td>+62 812-3456-7890</td>
+                  <td><span class="badge badge-purple">Terkonversi</span></td>
+                  <td><span class="badge badge-purple">ORDER_INTENT</span></td>
+                  <td>10:24 WIB</td>
+                  <td><span class="badge badge-dark">Tidak</span></td>
+                </tr>
+                <tr>
+                  <td style="padding-left:20px;font-family:var(--font-jakarta);font-weight:700;color:var(--g-dark);">Siti Rahayu</td>
+                  <td>+62 856-9012-3456</td>
+                  <td><span class="badge badge-coral">Eskalasi</span></td>
+                  <td><span class="badge badge-coral">COMPLAINT</span></td>
+                  <td>09:16 WIB</td>
+                  <td><span class="badge badge-coral">Ya ⚠️</span></td>
+                </tr>
+                <tr>
+                  <td style="padding-left:20px;font-family:var(--font-jakarta);font-weight:700;color:var(--g-dark);">Andi Wijaya</td>
+                  <td>+62 821-5678-9012</td>
+                  <td><span class="badge badge-green">Aktif</span></td>
+                  <td><span class="badge badge-green">PRICE_INQUIRY</span></td>
+                  <td>11:32 WIB</td>
+                  <td><span class="badge badge-dark">Tidak</span></td>
+                </tr>
+                <tr>
+                  <td style="padding-left:20px;font-family:var(--font-jakarta);font-weight:700;color:var(--g-dark);">Dewi Lestari</td>
+                  <td>+62 877-3456-7890</td>
+                  <td><span class="badge badge-green">Aktif</span></td>
+                  <td><span class="badge badge-amber">FOLLOW_UP_CHECK</span></td>
+                  <td>08:47 WIB</td>
+                  <td><span class="badge badge-dark">Tidak</span></td>
+                </tr>
+                <tr>
+                  <td style="padding-left:20px;font-family:var(--font-jakarta);font-weight:700;color:var(--g-dark);">Rudi Hermawan</td>
+                  <td>+62 813-2109-8765</td>
+                  <td><span class="badge badge-green">Aktif</span></td>
+                  <td><span class="badge badge-green">PRICE_INQUIRY</span></td>
+                  <td>12:10 WIB</td>
+                  <td><span class="badge badge-dark">Tidak</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /panelContacts -->
+
+
+      <!-- ╔══════════════════════════════════════════════╗
+           ║  DEALS / ORDERS PANEL                       ║
+           ╚══════════════════════════════════════════════╝ -->
+      <div class="panel" id="panelDeals">
+        <div class="stats-row" style="margin-bottom:20px;">
+          <div class="stat-card green">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Total Pesanan</span>
+              <div class="stat-card-icon"><i class="ti ti-shopping-cart" aria-hidden="true"></i></div>
+            </div>
+            <div class="stat-card-value">89</div>
+            <div class="stat-card-delta up"><i class="ti ti-trending-up" aria-hidden="true"></i> +5 bulan ini</div>
+          </div>
+          <div class="stat-card amber">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Pending</span>
+              <div class="stat-card-icon"><i class="ti ti-clock" aria-hidden="true"></i></div>
+            </div>
+            <div class="stat-card-value">12</div>
+            <div class="stat-card-delta down"><i class="ti ti-trending-down" aria-hidden="true"></i> -3 dari kemarin</div>
+          </div>
+          <div class="stat-card purple">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Total Nilai</span>
+              <div class="stat-card-icon"><i class="ti ti-currency" aria-hidden="true"></i></div>
+            </div>
+            <div class="stat-card-value" style="font-size:22px;">Rp 14.2jt</div>
+            <div class="stat-card-delta up"><i class="ti ti-trending-up" aria-hidden="true"></i> +Rp 2.1jt</div>
+          </div>
+          <div class="stat-card coral">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Konversi Rate</span>
+              <div class="stat-card-icon"><i class="ti ti-chart-pie" aria-hidden="true"></i></div>
+            </div>
+            <div class="stat-card-value">7.2%</div>
+            <div class="stat-card-delta up"><i class="ti ti-trending-up" aria-hidden="true"></i> +1.2% vs lalu</div>
+          </div>
+        </div>
+
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div class="dash-card-title">
+              <i class="ti ti-shopping-cart" aria-hidden="true"></i>
+              Semua Pesanan (Google Sheets Deals Tab)
+            </div>
+            <button class="btn btn-primary btn-sm">
+              <i class="ti ti-download" aria-hidden="true"></i>
+              Export CSV
+            </button>
+          </div>
+          <div class="dash-card-body" style="padding:0;">
+            <table class="deals-table" role="table" aria-label="All orders">
+              <thead>
+                <tr style="padding:0 20px;">
+                  <th style="padding:14px 20px;" scope="col">Pelanggan</th>
+                  <th scope="col">Nomor WA</th>
+                  <th scope="col">Produk</th>
+                  <th scope="col">Waktu</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding-left:20px;font-family:var(--font-jakarta);font-weight:700;color:var(--g-dark);">Budi Santoso</td>
+                  <td>+62 812-XXXX-7890</td>
+                  <td>Kaos Putih L × 5</td>
+                  <td>10:22 WIB</td>
+                  <td><span class="badge badge-purple">Terkonversi</span></td>
+                  <td><button class="btn btn-secondary btn-sm">Detail</button></td>
+                </tr>
+                <tr>
+                  <td style="padding-left:20px;font-family:var(--font-jakarta);font-weight:700;color:var(--g-dark);">Fajar Nugraha</td>
+                  <td>+62 819-XXXX-4321</td>
+                  <td>Kemeja Batik × 2</td>
+                  <td>09:44 WIB</td>
+                  <td><span class="badge badge-amber">Pending</span></td>
+                  <td><button class="btn btn-secondary btn-sm">Detail</button></td>
+                </tr>
+                <tr>
+                  <td style="padding-left:20px;font-family:var(--font-jakarta);font-weight:700;color:var(--g-dark);">Maya Kusuma</td>
+                  <td>+62 831-XXXX-6789</td>
+                  <td>Celana Jeans Slim × 1</td>
+                  <td>08:15 WIB</td>
+                  <td><span class="badge badge-green">Selesai</span></td>
+                  <td><button class="btn btn-secondary btn-sm">Detail</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /panelDeals -->
+
+
+      <!-- ╔══════════════════════════════════════════════╗
+           ║  ANALYTICS PANEL                            ║
+           ╚══════════════════════════════════════════════╝ -->
+      <div class="panel" id="panelAnalytics">
+        <div class="stats-row" style="margin-bottom:20px;">
+          <div class="stat-card green">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Pesan Bulan Ini</span>
+              <div class="stat-card-icon"><i class="ti ti-message-dots" aria-hidden="true"></i></div>
+            </div>
+            <div class="stat-card-value">8,492</div>
+            <div class="stat-card-delta up"><i class="ti ti-trending-up" aria-hidden="true"></i> +18%</div>
+          </div>
+          <div class="stat-card purple">
+            <div class="stat-card-header">
+              <span class="stat-card-label">AI Calls</span>
+              <div class="stat-card-icon"><i class="ti ti-brain" aria-hidden="true"></i></div>
+            </div>
+            <div class="stat-card-value">8,106</div>
+            <div class="stat-card-delta up"><i class="ti ti-trending-up" aria-hidden="true"></i> 95.5% handled</div>
+          </div>
+          <div class="stat-card amber">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Biaya AI</span>
+              <div class="stat-card-icon"><i class="ti ti-currency" aria-hidden="true"></i></div>
+            </div>
+            <div class="stat-card-value" style="font-size:22px;">$2.43</div>
+            <div class="stat-card-delta up"><i class="ti ti-check" aria-hidden="true"></i> Bulan ini</div>
+          </div>
+          <div class="stat-card coral">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Rata-rata Balas</span>
+              <div class="stat-card-icon"><i class="ti ti-clock" aria-hidden="true"></i></div>
+            </div>
+            <div class="stat-card-value">1.8dtk</div>
+            <div class="stat-card-delta up"><i class="ti ti-trending-down" aria-hidden="true"></i> -0.3dtk</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title">
+                <i class="ti ti-chart-bar" aria-hidden="true"></i>
+                Pesan per Hari (7 Hari Terakhir)
+              </div>
+            </div>
+            <div class="dash-card-body">
+              <!-- Simple CSS bar chart -->
+              <div style="display:flex;align-items:flex-end;gap:8px;height:160px;padding-top:10px;" role="img" aria-label="Bar chart showing messages per day">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+                  <div style="flex:1;width:100%;background:var(--g-green-light);border-radius:4px 4px 0 0;display:flex;align-items:flex-end;">
+                    <div style="width:100%;background:linear-gradient(180deg,var(--g-lime),var(--g-green));height:60%;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:10px;color:var(--g-muted);font-family:var(--font-inter);">Sen</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+                  <div style="flex:1;width:100%;background:var(--g-green-light);border-radius:4px 4px 0 0;display:flex;align-items:flex-end;">
+                    <div style="width:100%;background:linear-gradient(180deg,var(--g-lime),var(--g-green));height:80%;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:10px;color:var(--g-muted);font-family:var(--font-inter);">Sel</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+                  <div style="flex:1;width:100%;background:var(--g-green-light);border-radius:4px 4px 0 0;display:flex;align-items:flex-end;">
+                    <div style="width:100%;background:linear-gradient(180deg,var(--g-lime),var(--g-green));height:55%;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:10px;color:var(--g-muted);font-family:var(--font-inter);">Rab</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+                  <div style="flex:1;width:100%;background:var(--g-green-light);border-radius:4px 4px 0 0;display:flex;align-items:flex-end;">
+                    <div style="width:100%;background:linear-gradient(180deg,var(--g-lime),var(--g-green));height:90%;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:10px;color:var(--g-muted);font-family:var(--font-inter);">Kam</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+                  <div style="flex:1;width:100%;background:var(--g-green-light);border-radius:4px 4px 0 0;display:flex;align-items:flex-end;">
+                    <div style="width:100%;background:linear-gradient(180deg,var(--g-lime),var(--g-green));height:100%;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:10px;color:var(--g-muted);font-family:var(--font-inter);">Jum</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+                  <div style="flex:1;width:100%;background:var(--g-green-light);border-radius:4px 4px 0 0;display:flex;align-items:flex-end;">
+                    <div style="width:100%;background:linear-gradient(180deg,var(--g-lime),var(--g-green));height:75%;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:10px;color:var(--g-muted);font-family:var(--font-inter);">Sab</span>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+                  <div style="flex:1;width:100%;background:var(--g-green-light);border-radius:4px 4px 0 0;display:flex;align-items:flex-end;">
+                    <div style="width:100%;background:linear-gradient(180deg,var(--g-amber),var(--g-amber));height:40%;border-radius:4px 4px 0 0;"></div>
+                  </div>
+                  <span style="font-size:10px;color:var(--g-muted);font-family:var(--font-inter);">Hari ini</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title">
+                <i class="ti ti-chart-donut" aria-hidden="true"></i>
+                Distribusi Intent (Bulan Ini)
+              </div>
+            </div>
+            <div class="dash-card-body">
+              <div class="intent-chart-wrap">
+                <svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Monthly intent distribution">
+                  <circle cx="60" cy="60" r="44" fill="none" stroke="var(--g-border)" stroke-width="16" />
+                  <circle cx="60" cy="60" r="44" fill="none" stroke="#00AA5B" stroke-width="16"
+                    stroke-dasharray="104.4 172.8" stroke-linecap="butt"
+                    transform="rotate(-90 60 60)" />
+                  <circle cx="60" cy="60" r="44" fill="none" stroke="#6C47FF" stroke-width="16"
+                    stroke-dasharray="79.5 198.0" stroke-linecap="butt"
+                    transform="rotate(116.4 60 60)" />
+                  <circle cx="60" cy="60" r="44" fill="none" stroke="#F5A623" stroke-width="16"
+                    stroke-dasharray="49.4 228.2" stroke-linecap="butt"
+                    transform="rotate(279.6 60 60)" />
+                  <circle cx="60" cy="60" r="44" fill="none" stroke="#FF6B4A" stroke-width="16"
+                    stroke-dasharray="24.6 252.6" stroke-linecap="butt"
+                    transform="rotate(362.0 60 60)" />
+                  <text x="60" y="54" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="17" fill="var(--g-dark)">8.5K</text>
+                  <text x="60" y="70" text-anchor="middle" font-family="Inter" font-size="10" fill="var(--g-muted)">bulan ini</text>
+                </svg>
+                <div class="intent-legend" role="list">
+                  <div class="legend-item" role="listitem"><div class="legend-dot" style="background:#00AA5B;"></div><span>Tanya Harga</span><span class="legend-pct">38%</span></div>
+                  <div class="legend-item" role="listitem"><div class="legend-dot" style="background:#6C47FF;"></div><span>Order</span><span class="legend-pct">29%</span></div>
+                  <div class="legend-item" role="listitem"><div class="legend-dot" style="background:#F5A623;"></div><span>Follow-up</span><span class="legend-pct">18%</span></div>
+                  <div class="legend-item" role="listitem"><div class="legend-dot" style="background:#FF6B4A;"></div><span>Komplain</span><span class="legend-pct">9%</span></div>
+                  <div class="legend-item" role="listitem"><div class="legend-dot" style="background:#8E8EA8;"></div><span>Lainnya</span><span class="legend-pct">6%</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /panelAnalytics -->
+
+
+      <!-- ╔══════════════════════════════════════════════╗
+           ║  BOT SETTINGS PANEL                         ║
+           ╚══════════════════════════════════════════════╝ -->
+      <div class="panel" id="panelBot">
+        <div class="grid-2" style="margin-bottom:20px;">
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title">
+                <i class="ti ti-robot" aria-hidden="true"></i>
+                Konfigurasi Bot
+              </div>
+              <span class="badge badge-green">Aktif</span>
+            </div>
+            <div class="dash-card-body">
+              <div style="display:flex;flex-direction:column;gap:16px;">
+                <div>
+                  <label class="input-label" for="botBusinessName">Nama Bisnis</label>
+                  <input class="input" id="botBusinessName" value="Toko Berkah Jaya" placeholder="Nama bisnis kamu" />
+                </div>
+                <div>
+                  <label class="input-label" for="botJamOp">Jam Operasional</label>
+                  <input class="input" id="botJamOp" value="08.00-22.00 WIB" placeholder="mis. 08.00-22.00 WIB" />
+                </div>
+                <div>
+                  <label class="input-label" for="botEscalationPhone">Nomor Eskalasi (Owner WA)</label>
+                  <input class="input" id="botEscalationPhone" value="628123456789" placeholder="628xxxxxxxxxx" />
+                </div>
+                <div>
+                  <label class="input-label" for="botAiProvider">AI Provider</label>
+                  <select class="input" id="botAiProvider" style="cursor:pointer;">
+                    <option value="openai" selected>OpenAI (GPT-4o mini) — Direkomendasikan</option>
+                    <option value="anthropic">Anthropic (Claude Haiku)</option>
+                  </select>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--g-surface);border-radius:var(--r-md);border:1.5px solid var(--g-border);">
+                  <div>
+                    <div style="font-family:var(--font-jakarta);font-weight:700;font-size:14px;color:var(--g-dark);">Bot Aktif</div>
+                    <div style="font-family:var(--font-inter);font-size:12px;color:var(--g-muted);">Bot membalas pesan secara otomatis</div>
+                  </div>
+                  <label class="toggle-switch" aria-label="Toggle bot active">
+                    <input type="checkbox" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <button class="btn btn-primary" style="width:100%;justify-content:center;">
+                  <i class="ti ti-device-floppy" aria-hidden="true"></i>
+                  Simpan Konfigurasi
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title">
+                <i class="ti ti-list" aria-hidden="true"></i>
+                Katalog Produk & Harga
+              </div>
+              <span class="badge badge-amber" style="font-size:11px;">AI Context</span>
+            </div>
+            <div class="dash-card-body">
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div>
+                  <label class="input-label" for="botPriceList">Daftar Harga (PRICE_LIST)</label>
+                  <textarea class="input" id="botPriceList" rows="5" style="resize:vertical;" placeholder="Kaos polos: Rp 45.000, Kemeja: Rp 95.000...">Kaos polos putih/hitam: Rp 45.000 (S-XL), Rp 50.000 (XXL)
+Kemeja batik: Rp 125.000
+Celana jeans slim: Rp 185.000
+Celana jeans regular: Rp 220.000
+Diskon: min. 10 pcs dapat 10%</textarea>
+                </div>
+                <div>
+                  <label class="input-label" for="botCatalog">Deskripsi Produk (PRODUCT_CATALOG)</label>
+                  <textarea class="input" id="botCatalog" rows="4" style="resize:vertical;" placeholder="Kami menjual...">Toko Berkah Jaya menjual pakaian casual berkualitas tinggi dengan bahan adem dan jahitan rapi. Tersedia untuk pria dan wanita. Pengiriman ke seluruh Indonesia via JNE, J&T, dan SiCepat.</textarea>
+                </div>
+                <button class="btn btn-secondary" style="width:100%;justify-content:center;">
+                  <i class="ti ti-refresh" aria-hidden="true"></i>
+                  Update Konteks AI
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /panelBot -->
+
+
+      <!-- ╔══════════════════════════════════════════════╗
+           ║  SETTINGS PANEL                             ║
+           ╚══════════════════════════════════════════════╝ -->
+      <div class="panel" id="panelSettings">
+        <div class="dash-card" style="max-width:600px;">
+          <div class="dash-card-header">
+            <div class="dash-card-title">
+              <i class="ti ti-settings" aria-hidden="true"></i>
+              Pengaturan Akun
+            </div>
+          </div>
+          <div class="dash-card-body">
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;padding:20px;background:var(--g-surface);border-radius:var(--r-lg);">
+              <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--g-green),var(--g-teal));display:flex;align-items:center;justify-content:center;font-family:var(--font-jakarta);font-weight:800;font-size:20px;color:#fff;box-shadow:var(--shadow-green);">TB</div>
+              <div>
+                <div style="font-family:var(--font-jakarta);font-weight:700;font-size:16px;color:var(--g-dark);">Toko Berkah Jaya</div>
+                <div style="font-family:var(--font-inter);font-size:13px;color:var(--g-muted);">tokoberkah@gmail.com</div>
+                <span class="badge badge-green" style="margin-top:4px;">Paket Growth</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <div>
+                <label class="input-label" for="settingsEmail">Email</label>
+                <input class="input" id="settingsEmail" value="tokoberkah@gmail.com" type="email" />
+              </div>
+              <div>
+                <label class="input-label" for="settingsWaNumber">Nomor WhatsApp Business</label>
+                <input class="input" id="settingsWaNumber" value="+62 812-3456-7890" />
+              </div>
+              <div>
+                <label class="input-label" for="settingsGsheetId">Google Sheet ID</label>
+                <input class="input" id="settingsGsheetId" value="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms" />
+              </div>
+              <div style="display:flex;gap:10px;">
+                <button class="btn btn-primary" style="flex:1;justify-content:center;">
+                  <i class="ti ti-device-floppy" aria-hidden="true"></i>
+                  Simpan
+                </button>
+                <button class="btn btn-danger btn-sm" style="justify-content:center;">
+                  <i class="ti ti-logout" aria-hidden="true"></i>
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /panelSettings -->
+
+    </main>
+  </div><!-- /dashboard-main -->
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

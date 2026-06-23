@@ -1,0 +1,431 @@
+/* ============================================================
+   Balasara Brand Design Tokens
+   Source: WAR_brand_guidelines.html v1.0
+   Fonts: Plus Jakarta Sans (headings), Inter (body)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── Tabler Icons ────────────────────────────────────────── */
+@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css');
+
+:root {
+  /* ── Primary palette ─────────────────────────────────── */
+  --g-green:        #00AA5B;
+  --g-green-light:  #E6F7EE;
+  --g-green-dark:   #007A3E;
+  --g-lime:         #00D37F;
+  --g-teal:         #00B07A;
+
+  /* ── Semantic colors ─────────────────────────────────── */
+  --g-coral:        #FF6B4A;
+  --g-coral-light:  #FFF0EC;
+  --g-amber:        #F5A623;
+  --g-amber-light:  #FEF8EC;
+  --g-purple:       #6C47FF;
+  --g-purple-light: #F0EDFF;
+
+  /* ── Neutrals ────────────────────────────────────────── */
+  --g-dark:         #1A1A2E;
+  --g-dark-2:       #252540;
+  --g-mid:          #4A4A68;
+  --g-muted:        #8E8EA8;
+  --g-border:       #E2EDE8;
+  --g-surface:      #F7FBF8;
+  --g-white:        #FFFFFF;
+
+  /* ── Typography ──────────────────────────────────────── */
+  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+  --font-inter:   'Inter', sans-serif;
+
+  /* ── Spacing (4px base) ──────────────────────────────── */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+
+  /* ── Border radii ────────────────────────────────────── */
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   14px;
+  --r-xl:   20px;
+  --r-pill: 100px;
+
+  /* ── Shadows ─────────────────────────────────────────── */
+  --shadow-xs:  0 1px 3px rgba(0,0,0,0.06);
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md:  0 4px 20px rgba(0,0,0,0.10);
+  --shadow-lg:  0 8px 40px rgba(0,0,0,0.14);
+  --shadow-green: 0 4px 24px rgba(0,170,91,0.30);
+
+  /* ── Motion (from brand guidelines §09) ─────────────── */
+  --motion-micro:    100ms ease-out;
+  --motion-standard: 200ms ease-in-out;
+  --motion-emphasis: 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-inter);
+  color: var(--g-dark);
+  background: var(--g-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* ── Typography scale ────────────────────────────────────── */
+.t-display {
+  font-family: var(--font-jakarta);
+  font-weight: 800;
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.t-h1 {
+  font-family: var(--font-jakarta);
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.t-h2 {
+  font-family: var(--font-jakarta);
+  font-weight: 700;
+  font-size: clamp(22px, 3vw, 28px);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+.t-h3 {
+  font-family: var(--font-jakarta);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.t-body {
+  font-family: var(--font-inter);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--g-mid);
+}
+.t-small {
+  font-family: var(--font-inter);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--g-muted);
+}
+.t-label {
+  font-family: var(--font-jakarta);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g-green);
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  font-family: var(--font-jakarta);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 11px 20px;
+  border-radius: var(--r-md);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--motion-micro);
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--g-green);
+  color: #fff;
+  box-shadow: var(--shadow-green);
+}
+.btn-primary:hover {
+  background: var(--g-teal);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 28px rgba(0,170,91,0.40);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-secondary {
+  background: var(--g-green-light);
+  color: var(--g-green-dark);
+}
+.btn-secondary:hover {
+  background: #d0f0e0;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--g-mid);
+  border: 1.5px solid var(--g-border);
+}
+.btn-ghost:hover {
+  border-color: var(--g-green);
+  color: var(--g-green);
+  transform: translateY(-1px);
+}
+
+.btn-ghost-white {
+  background: transparent;
+  color: rgba(255,255,255,0.8);
+  border: 1.5px solid rgba(255,255,255,0.2);
+}
+.btn-ghost-white:hover {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border-color: rgba(255,255,255,0.4);
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background: var(--g-coral-light);
+  color: #C0392B;
+}
+.btn-danger:hover {
+  background: #fdddd9;
+  transform: translateY(-1px);
+}
+
+.btn-lg { padding: 14px 28px; font-size: 15px; border-radius: var(--r-md); }
+.btn-sm { padding: 7px 14px; font-size: 12px; border-radius: var(--r-sm); }
+.btn-xl { padding: 17px 36px; font-size: 16px; border-radius: var(--r-md); }
+
+/* ── Badges / Chips ─────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-jakarta);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+}
+.badge-green   { background: var(--g-green-light); color: var(--g-green-dark); }
+.badge-coral   { background: var(--g-coral-light); color: #C0392B; }
+.badge-amber   { background: var(--g-amber-light); color: #9A6700; }
+.badge-purple  { background: var(--g-purple-light); color: #4A27C5; }
+.badge-dark    { background: rgba(26,26,46,0.08); color: var(--g-dark); }
+.badge-outline { background: transparent; border: 1.5px solid var(--g-border); color: var(--g-mid); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+  font-family: var(--font-jakarta);
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+}
+
+/* ── Cards ───────────────────────────────────────────────── */
+.card {
+  background: var(--g-white);
+  border: 1px solid var(--g-border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+}
+.card-hover {
+  transition: all var(--motion-standard);
+}
+.card-hover:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+  border-color: var(--g-green);
+}
+
+/* ── Inputs ──────────────────────────────────────────────── */
+.input {
+  width: 100%;
+  background: var(--g-surface);
+  border: 1.5px solid var(--g-border);
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: var(--g-dark);
+  outline: none;
+  transition: border-color var(--motion-micro);
+}
+.input:focus {
+  border-color: var(--g-green);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(0,170,91,0.12);
+}
+.input-label {
+  font-family: var(--font-jakarta);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--g-mid);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* ── WhatsApp bubble styles ──────────────────────────────── */
+.wa-bubble-in {
+  background: var(--g-white);
+  border-radius: 0 12px 12px 12px;
+  padding: 9px 13px;
+  font-size: 13px;
+  font-family: var(--font-inter);
+  color: var(--g-dark);
+  max-width: 85%;
+  margin-bottom: 6px;
+  line-height: 1.5;
+  box-shadow: var(--shadow-xs);
+}
+.wa-bubble-out {
+  background: #D9FDD3;
+  border-radius: 12px 0 12px 12px;
+  padding: 9px 13px;
+  font-size: 13px;
+  font-family: var(--font-inter);
+  color: var(--g-dark);
+  max-width: 85%;
+  margin-bottom: 6px;
+  margin-left: auto;
+  line-height: 1.5;
+  box-shadow: var(--shadow-xs);
+}
+.wa-time {
+  font-size: 10px;
+  color: var(--g-muted);
+  text-align: right;
+  margin-top: 3px;
+}
+
+/* ── Section label ───────────────────────────────────────── */
+.section-label {
+  font-family: var(--font-jakarta);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g-green);
+  margin-bottom: 8px;
+}
+
+/* ── Divider ─────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--g-border);
+  border: none;
+}
+
+/* ── Utilities ───────────────────────────────────────────── */
+.text-green  { color: var(--g-green); }
+.text-lime   { color: var(--g-lime); }
+.text-muted  { color: var(--g-muted); }
+.text-mid    { color: var(--g-mid); }
+.text-white  { color: #fff; }
+.text-dark   { color: var(--g-dark); }
+.text-center { text-align: center; }
+
+.flex        { display: flex; }
+.flex-col    { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2  { gap: var(--sp-2); }
+.gap-3  { gap: var(--sp-3); }
+.gap-4  { gap: var(--sp-4); }
+.gap-6  { gap: var(--sp-6); }
+.gap-8  { gap: var(--sp-8); }
+.wrap   { flex-wrap: wrap; }
+
+.mt-2 { margin-top: var(--sp-2); }
+.mt-4 { margin-top: var(--sp-4); }
+.mt-6 { margin-top: var(--sp-6); }
+.mb-2 { margin-bottom: var(--sp-2); }
+.mb-4 { margin-bottom: var(--sp-4); }
+
+/* ── Fade-in animation ───────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.15); opacity: 0.7; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes typing {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  30%       { transform: translateY(-6px); }
+  60%       { transform: translateY(-3px); }
+}
+
+.animate-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.animate-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--g-border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--g-muted); }
+
+/* ── Selection ───────────────────────────────────────────── */
+::selection {
+  background: var(--g-green-light);
+  color: var(--g-green-dark);
+}

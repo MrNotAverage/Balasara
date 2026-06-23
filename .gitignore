@@ -1,0 +1,6 @@
+.DS_Store
+waba-backend.zip
+__pycache__/
+*.pyc
+node_modules/
+.env

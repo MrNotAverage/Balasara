@@ -1,0 +1,717 @@
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --g-green: #00AA5B;
+    --g-green-light: #E6F7EE;
+    --g-green-dark: #007A3E;
+    --g-lime: #00D37F;
+    --g-teal: #00B07A;
+    --g-coral: #FF6B4A;
+    --g-coral-light: #FFF0EC;
+    --g-amber: #F5A623;
+    --g-amber-light: #FEF8EC;
+    --g-dark: #1A1A2E;
+    --g-mid: #4A4A68;
+    --g-muted: #8E8EA8;
+    --g-border: #E2EDE8;
+    --g-surface: #F7FBF8;
+    --g-white: #FFFFFF;
+    --g-purple: #6C47FF;
+    --jakarta: 'Plus Jakarta Sans', sans-serif;
+    --inter: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: transparent; }
+
+  .bg { background: var(--g-surface); font-family: var(--inter); padding: 0 0 3rem; }
+
+  .hero {
+    background: var(--g-dark);
+    padding: 3rem 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 48px;
+    background: var(--g-surface);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(0,170,91,0.2);
+    color: var(--g-lime);
+    font-family: var(--jakarta);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1px solid rgba(0,211,127,0.3);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: var(--jakarta);
+    font-size: 36px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 span { color: var(--g-lime); }
+  .hero p {
+    font-family: var(--inter);
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    font-family: var(--jakarta);
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 100px;
+  }
+
+  .section { padding: 2.5rem 2rem 0; }
+  .section-label {
+    font-family: var(--jakarta);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--g-green);
+    margin-bottom: 0.4rem;
+  }
+  .section-title {
+    font-family: var(--jakarta);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--g-dark);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.35rem;
+  }
+  .section-sub {
+    font-size: 14px;
+    color: var(--g-mid);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+  .swatch {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--g-border);
+    background: var(--g-white);
+  }
+  .swatch-bar { height: 72px; }
+  .swatch-info { padding: 10px 12px; }
+  .swatch-name { font-family: var(--jakarta); font-size: 12px; font-weight: 700; color: var(--g-dark); }
+  .swatch-hex { font-family: 'Courier New', monospace; font-size: 11px; color: var(--g-muted); margin-top: 2px; }
+  .swatch-role { font-size: 10px; color: var(--g-green-dark); background: var(--g-green-light); padding: 2px 7px; border-radius: 100px; display: inline-block; margin-top: 5px; font-family: var(--jakarta); font-weight: 600; }
+
+  .type-block {
+    background: var(--g-white);
+    border: 1px solid var(--g-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 10px;
+  }
+  .type-specimen-xl { font-family: var(--jakarta); font-weight: 800; font-size: 42px; color: var(--g-dark); letter-spacing: -0.03em; line-height: 1.05; }
+  .type-specimen-lg { font-family: var(--jakarta); font-weight: 700; font-size: 28px; color: var(--g-dark); letter-spacing: -0.02em; }
+  .type-specimen-md { font-family: var(--jakarta); font-weight: 600; font-size: 18px; color: var(--g-dark); }
+  .type-specimen-body { font-family: var(--inter); font-size: 15px; color: var(--g-mid); line-height: 1.7; margin-top: 6px; }
+  .type-specimen-sm { font-family: var(--inter); font-size: 12px; color: var(--g-muted); letter-spacing: 0.04em; text-transform: uppercase; font-weight: 500; }
+  .type-meta { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+  .type-tag { font-size: 11px; color: var(--g-muted); font-family: var(--inter); }
+  .type-tag strong { color: var(--g-dark); font-weight: 500; }
+
+  .logo-zone {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .logo-card {
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid var(--g-border);
+    gap: 8px;
+  }
+  .logo-wordmark {
+    font-family: var(--jakarta);
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .logo-tagline { font-family: var(--inter); font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+  .logo-on-white { background: var(--g-white); }
+  .logo-on-white .logo-wordmark { color: var(--g-dark); }
+  .logo-on-white .logo-wordmark span { color: var(--g-green); }
+  .logo-on-white .logo-tagline { color: var(--g-muted); }
+  .logo-on-dark { background: var(--g-dark); }
+  .logo-on-dark .logo-wordmark { color: #fff; }
+  .logo-on-dark .logo-wordmark span { color: var(--g-lime); }
+  .logo-on-dark .logo-tagline { color: rgba(255,255,255,0.45); }
+  .logo-on-green { background: var(--g-green); }
+  .logo-on-green .logo-wordmark { color: #fff; }
+  .logo-on-green .logo-tagline { color: rgba(255,255,255,0.6); }
+  .logo-mark {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--jakarta); font-weight: 800; font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .comp-card {
+    background: var(--g-white);
+    border: 1px solid var(--g-border);
+    border-radius: 14px;
+    padding: 1.25rem;
+  }
+  .comp-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--g-muted); margin-bottom: 10px; font-family: var(--jakarta); }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--g-green); color: #fff;
+    font-family: var(--jakarta); font-weight: 700; font-size: 14px;
+    padding: 11px 20px; border-radius: 10px; border: none; cursor: pointer;
+    width: 100%;
+    justify-content: center; margin-bottom: 8px;
+  }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--g-green-light); color: var(--g-green-dark);
+    font-family: var(--jakarta); font-weight: 700; font-size: 14px;
+    padding: 11px 20px; border-radius: 10px; border: none; cursor: pointer;
+    width: 100%; justify-content: center; margin-bottom: 8px;
+  }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: transparent; color: var(--g-mid);
+    font-family: var(--jakarta); font-weight: 600; font-size: 14px;
+    padding: 11px 20px; border-radius: 10px;
+    border: 1.5px solid var(--g-border); cursor: pointer;
+    width: 100%; justify-content: center;
+  }
+  .btn-danger {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--g-coral-light); color: #C0392B;
+    font-family: var(--jakarta); font-weight: 700; font-size: 14px;
+    padding: 11px 20px; border-radius: 10px; border: none; cursor: pointer;
+    width: 100%; justify-content: center; margin-top: 8px;
+  }
+
+  .badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .badge {
+    font-size: 11px; font-weight: 700; font-family: var(--jakarta);
+    padding: 4px 10px; border-radius: 100px;
+  }
+  .badge-green { background: var(--g-green-light); color: var(--g-green-dark); }
+  .badge-coral { background: var(--g-coral-light); color: #C0392B; }
+  .badge-amber { background: var(--g-amber-light); color: #9A6700; }
+  .badge-purple { background: #F0EDFF; color: #4A27C5; }
+  .badge-dark { background: rgba(26,26,46,0.08); color: var(--g-dark); }
+
+  .input-demo {
+    background: var(--g-surface);
+    border: 1.5px solid var(--g-border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: var(--inter);
+    font-size: 14px;
+    color: var(--g-dark);
+    width: 100%;
+    margin-bottom: 8px;
+    outline: none;
+  }
+  .input-label { font-size: 11px; font-weight: 700; color: var(--g-mid); font-family: var(--jakarta); margin-bottom: 4px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  .wa-preview {
+    background: #ECF5F0;
+    border-radius: 14px;
+    padding: 1rem;
+    border: 1px solid var(--g-border);
+  }
+  .wa-header {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--g-green); border-radius: 10px 10px 0 0;
+    padding: 10px 14px; margin: -1rem -1rem 10px;
+  }
+  .wa-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--jakarta); font-size: 13px; font-weight: 800; color: #fff;
+  }
+  .wa-name { font-family: var(--jakarta); font-weight: 700; font-size: 13px; color: #fff; }
+  .wa-status { font-size: 10px; color: rgba(255,255,255,0.65); }
+  .wa-bubble-in {
+    background: var(--g-white); border-radius: 0 12px 12px 12px;
+    padding: 9px 13px; font-size: 13px; font-family: var(--inter);
+    color: var(--g-dark); max-width: 85%; margin-bottom: 6px; line-height: 1.5;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+  .wa-bubble-out {
+    background: #D9FDD3; border-radius: 12px 0 12px 12px;
+    padding: 9px 13px; font-size: 13px; font-family: var(--inter);
+    color: var(--g-dark); max-width: 85%; margin-bottom: 6px;
+    margin-left: auto; line-height: 1.5;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+  .wa-time { font-size: 10px; color: var(--g-muted); text-align: right; margin-top: 3px; }
+
+  .tone-card {
+    background: var(--g-white);
+    border: 1px solid var(--g-border);
+    border-radius: 14px;
+    padding: 1.25rem;
+    margin-bottom: 10px;
+  }
+  .tone-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tone-bad {
+    background: #FFF5F5; border-radius: 10px; padding: 12px;
+    border-left: 3px solid var(--g-coral);
+  }
+  .tone-good {
+    background: var(--g-green-light); border-radius: 10px; padding: 12px;
+    border-left: 3px solid var(--g-green);
+  }
+  .tone-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-family: var(--jakarta); margin-bottom: 6px; }
+  .tone-tag-bad { color: var(--g-coral); }
+  .tone-tag-good { color: var(--g-green); }
+  .tone-text { font-size: 13px; color: var(--g-dark); font-family: var(--inter); line-height: 1.55; }
+
+  .spacing-row { display: flex; align-items: flex-end; gap: 8px; margin-top: 8px; }
+  .spacing-block { background: var(--g-green); border-radius: 4px; flex-shrink: 0; }
+  .spacing-meta { font-size: 11px; color: var(--g-mid); font-family: var(--inter); }
+
+  .icon-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .icon-pill {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--g-white); border: 1px solid var(--g-border);
+    border-radius: 8px; padding: 7px 12px;
+    font-size: 12px; color: var(--g-mid); font-family: var(--inter);
+  }
+  .icon-pill i { font-size: 16px; color: var(--g-green); }
+
+  .divider { height: 1px; background: var(--g-border); margin: 2.5rem 2rem 0; }
+
+  .motion-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .motion-card {
+    flex: 1; min-width: 120px;
+    background: var(--g-white); border: 1px solid var(--g-border);
+    border-radius: 12px; padding: 14px;
+  }
+  .motion-name { font-family: var(--jakarta); font-weight: 700; font-size: 13px; color: var(--g-dark); margin-bottom: 4px; }
+  .motion-val { font-family: 'Courier New', monospace; font-size: 11px; color: var(--g-green-dark); background: var(--g-green-light); padding: 3px 8px; border-radius: 6px; display: inline-block; }
+  .motion-use { font-size: 11px; color: var(--g-muted); margin-top: 5px; font-family: var(--inter); }
+
+  .full-card {
+    background: var(--g-white);
+    border: 1px solid var(--g-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+</style>
+
+<div class="bg">
+
+  <div class="hero">
+    <div class="hero-badge">Brand Guidelines v1.0</div>
+    <h1>Desain yang<br><span>Merakyat & Modern</span></h1>
+    <p>Visual identity untuk sistem WhatsApp otomatis UMKM Indonesia</p>
+    <div class="hero-chips">
+      <span class="chip">Friendly</span>
+      <span class="chip">Trustworthy</span>
+      <span class="chip">Local-first</span>
+      <span class="chip">Empowering</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">01 — Warna</div>
+    <div class="section-title">Color System</div>
+    <div class="section-sub">Diinspirasi dari energi hijau Gojek dan kehangatan Tokopedia. Hijau primer melambangkan kepercayaan, pertumbuhan, dan semangat lokal.</div>
+
+    <div class="color-grid">
+      <div class="swatch">
+        <div class="swatch-bar" style="background:#00AA5B"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Hijau Utama</div>
+          <div class="swatch-hex">#00AA5B</div>
+          <span class="swatch-role">Primary</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-bar" style="background:#00D37F"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Lime Aktif</div>
+          <div class="swatch-hex">#00D37F</div>
+          <span class="swatch-role">CTA / Accent</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-bar" style="background:#007A3E"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Hijau Dalam</div>
+          <div class="swatch-hex">#007A3E</div>
+          <span class="swatch-role">Dark variant</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-bar" style="background:#1A1A2E"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Malam Dalam</div>
+          <div class="swatch-hex">#1A1A2E</div>
+          <span class="swatch-role">Heading text</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-bar" style="background:#FF6B4A"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Koral Hangat</div>
+          <div class="swatch-hex">#FF6B4A</div>
+          <span class="swatch-role">Alert / Error</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-bar" style="background:#F5A623"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Kuning Emas</div>
+          <div class="swatch-hex">#F5A623</div>
+          <span class="swatch-role">Warning</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-bar" style="background:#6C47FF"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Ungu Digital</div>
+          <div class="swatch-hex">#6C47FF</div>
+          <span class="swatch-role">Feature highlight</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-bar" style="background:#F7FBF8"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Putih Mint</div>
+          <div class="swatch-hex">#F7FBF8</div>
+          <span class="swatch-role">Background</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">02 — Tipografi</div>
+    <div class="section-title">Typography Scale</div>
+    <div class="section-sub">Plus Jakarta Sans untuk display & heading — tegas, modern, dan "Indonesian tech". Inter untuk body — mudah dibaca di semua ukuran layar.</div>
+
+    <div class="type-block">
+      <div class="type-specimen-xl">Mudah, Cepat,<br>Otomatis.</div>
+      <div class="type-meta">
+        <span class="type-tag"><strong>Plus Jakarta Sans</strong> 800 — 42px Display</span>
+      </div>
+    </div>
+    <div class="type-block">
+      <div class="type-specimen-lg">Balas pelanggan dalam hitungan detik</div>
+      <div class="type-meta"><span class="type-tag"><strong>Plus Jakarta Sans</strong> 700 — 28px H1</span></div>
+    </div>
+    <div class="type-block">
+      <div class="type-specimen-md">Sistem reply otomatis 24 jam</div>
+      <div class="type-meta"><span class="type-tag"><strong>Plus Jakarta Sans</strong> 600 — 18px H2</span></div>
+    </div>
+    <div class="type-block">
+      <div class="type-specimen-body">Dengan teknologi AI, pesanmu dibalas otomatis sesuai konteks pelanggan — dari tanya harga sampai konfirmasi pesanan, semua ditangani tanpa perlu kamu online 24 jam.</div>
+      <div class="type-meta"><span class="type-tag"><strong>Inter</strong> 400 — 15px Body — line-height 1.7</span></div>
+    </div>
+    <div class="type-block">
+      <div class="type-specimen-sm">Label • Caption • Kategori • Metadata</div>
+      <div class="type-meta"><span class="type-tag"><strong>Inter</strong> 500 — 12px Uppercase — letter-spacing 0.04em</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">03 — Logo</div>
+    <div class="section-title">Logo & Wordmark</div>
+    <div class="section-sub">Tiga varian penggunaan resmi. Jangan ubah proporsi, warna, atau typeface logo di luar panduan ini.</div>
+
+    <div class="logo-zone">
+      <div class="logo-card logo-on-white">
+        <div class="logo-mark" style="background:var(--g-green-light);">
+          <span style="color:var(--g-green);font-family:var(--jakarta);font-weight:800;font-size:18px;">W</span>
+        </div>
+        <div class="logo-wordmark">Waba<span>Bot</span></div>
+        <div class="logo-tagline">Otomasi WhatsApp UMKM</div>
+        <span style="font-size:10px;color:var(--g-muted);font-family:var(--inter);margin-top:4px;">Gunakan di atas background putih / terang</span>
+      </div>
+      <div class="logo-card logo-on-dark">
+        <div class="logo-mark" style="background:rgba(0,211,127,0.15);">
+          <span style="color:var(--g-lime);font-family:var(--jakarta);font-weight:800;font-size:18px;">W</span>
+        </div>
+        <div class="logo-wordmark">Waba<span>Bot</span></div>
+        <div class="logo-tagline">Otomasi WhatsApp UMKM</div>
+        <span style="font-size:10px;color:rgba(255,255,255,0.3);font-family:var(--inter);margin-top:4px;">Gunakan di atas background gelap</span>
+      </div>
+      <div class="logo-card logo-on-green" style="border-color:transparent;">
+        <div class="logo-mark" style="background:rgba(255,255,255,0.2);">
+          <span style="color:#fff;font-family:var(--jakarta);font-weight:800;font-size:18px;">W</span>
+        </div>
+        <div class="logo-wordmark" style="color:#fff;">WabaBot</div>
+        <div class="logo-tagline">Otomasi WhatsApp UMKM</div>
+        <span style="font-size:10px;color:rgba(255,255,255,0.5);font-family:var(--inter);margin-top:4px;">Brand color background — hijau primer</span>
+      </div>
+      <div class="logo-card" style="background:var(--g-surface);align-items:center;justify-content:center;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div class="logo-mark" style="width:52px;height:52px;background:var(--g-green);border-radius:14px;">
+            <span style="color:#fff;font-family:var(--jakarta);font-weight:800;font-size:26px;">W</span>
+          </div>
+          <span style="font-size:10px;color:var(--g-muted);font-family:var(--inter);text-align:center;">App icon / favicon<br>52×52px, radius 14px</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">04 — Komponen</div>
+    <div class="section-title">UI Components</div>
+    <div class="section-sub">Komponen siap pakai yang konsisten di semua touchpoint produk.</div>
+
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-label">Tombol</div>
+        <button class="btn-primary">Mulai Sekarang</button>
+        <button class="btn-secondary">Lihat Demo</button>
+        <button class="btn-ghost">Batal</button>
+        <button class="btn-danger">Hapus Kontak</button>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">Badge & Status</div>
+        <div class="badge-row">
+          <span class="badge badge-green">Aktif</span>
+          <span class="badge badge-coral">Eskalasi</span>
+          <span class="badge badge-amber">Follow-up</span>
+          <span class="badge badge-purple">AI</span>
+          <span class="badge badge-dark">Baru</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-green">Terkonversi</span>
+          <span class="badge badge-coral">Komplain</span>
+          <span class="badge badge-amber">Pending</span>
+        </div>
+        <div style="margin-top:10px;">
+          <div class="input-label">Nama Bisnis</div>
+          <input class="input-demo" placeholder="mis. Toko Berkah Jaya" style="font-family:var(--inter);"/>
+          <div class="input-label">Nomor WhatsApp</div>
+          <input class="input-demo" placeholder="628xxxxxxxxxx" style="font-family:var(--inter);"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">05 — Voice & Tone</div>
+    <div class="section-title">Suara Brand</div>
+    <div class="section-sub">Bicara seperti teman yang helpful — bukan robot, bukan sales yang memaksa. Gunakan "kak" sebagai sapaan universal. Hangat, singkat, jelas.</div>
+
+    <div class="tone-card">
+      <div class="tone-vs">
+        <div class="tone-bad">
+          <div class="tone-tag tone-tag-bad">Jangan</div>
+          <div class="tone-text">"Terima kasih telah menghubungi sistem layanan pelanggan kami. Pertanyaan Anda telah kami terima."</div>
+        </div>
+        <div class="tone-good">
+          <div class="tone-tag tone-tag-good">Gunakan ini</div>
+          <div class="tone-text">"Halo kak! Terima kasih udah hubungi kami 😊 Ada yang bisa dibantu?"</div>
+        </div>
+      </div>
+    </div>
+    <div class="tone-card">
+      <div class="tone-vs">
+        <div class="tone-bad">
+          <div class="tone-tag tone-tag-bad">Jangan</div>
+          <div class="tone-text">"Mohon maaf atas ketidaknyamanan yang Anda alami. Kami akan menindaklanjuti keluhan Anda secepatnya."</div>
+        </div>
+        <div class="tone-good">
+          <div class="tone-tag tone-tag-good">Gunakan ini</div>
+          <div class="tone-text">"Aduh, maaf banget ya kak 🙏 Boleh kasih tahu nomor pesanannya? Kami langsung cek sekarang."</div>
+        </div>
+      </div>
+    </div>
+    <div class="tone-card">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+        <span class="badge badge-green">Hangat</span>
+        <span class="badge badge-green">Proaktif</span>
+        <span class="badge badge-green">Jelas</span>
+        <span class="badge badge-amber">Sapaan "kak"</span>
+        <span class="badge badge-amber">Max 3 kalimat</span>
+        <span class="badge badge-coral">Jangan formal berlebihan</span>
+        <span class="badge badge-coral">Jangan ALL CAPS</span>
+      </div>
+      <div style="font-size:13px;color:var(--g-mid);font-family:var(--inter);line-height:1.65;">
+        <strong style="color:var(--g-dark);">Emoji:</strong> maksimal 1–2 per pesan. Gunakan yang familiar: 😊 🙏 ✅ 📦 — hindari yang terlalu playful untuk konteks komplain atau serius.
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">06 — WhatsApp UI</div>
+    <div class="section-title">Contoh Pesan</div>
+    <div class="section-sub">Tampilan nyata pesan bot di WhatsApp — desain bubble mengikuti standar platform.</div>
+
+    <div class="wa-preview">
+      <div class="wa-header">
+        <div class="wa-avatar">WB</div>
+        <div>
+          <div class="wa-name">WabaBot — Toko Berkah</div>
+          <div class="wa-status">Online</div>
+        </div>
+      </div>
+      <div class="wa-bubble-in">Halo, harga kaos polos yang putih berapa ya?<div class="wa-time">10:23</div></div>
+      <div class="wa-bubble-out">Halo kak! Kaos polos putih kami mulai dari Rp 45.000 untuk size S–XL, dan Rp 50.000 untuk XXL 😊 Mau langsung pesan atau ada ukuran yang mau dicek dulu?<div class="wa-time">10:23 ✓✓</div></div>
+      <div class="wa-bubble-in">Pesan 3 pcs size L dong<div class="wa-time">10:25</div></div>
+      <div class="wa-bubble-out">Siap kak! Boleh konfirmasi nama dan alamat pengirimannya? Kami langsung proses 📦<div class="wa-time">10:25 ✓✓</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">07 — Ikonografi</div>
+    <div class="section-title">Icon Set</div>
+    <div class="section-sub">Gunakan Tabler Icons (outline) secara konsisten. Ukuran standar: 20px inline, 24px dekoratif.</div>
+
+    <div class="full-card">
+      <div class="icon-grid">
+        <div class="icon-pill"><i class="ti ti-message-circle" aria-hidden="true"></i> Pesan</div>
+        <div class="icon-pill"><i class="ti ti-user-check" aria-hidden="true"></i> Kontak</div>
+        <div class="icon-pill"><i class="ti ti-shopping-cart" aria-hidden="true"></i> Pesanan</div>
+        <div class="icon-pill"><i class="ti ti-chart-bar" aria-hidden="true"></i> Statistik</div>
+        <div class="icon-pill"><i class="ti ti-bell" aria-hidden="true"></i> Notifikasi</div>
+        <div class="icon-pill"><i class="ti ti-settings" aria-hidden="true"></i> Pengaturan</div>
+        <div class="icon-pill"><i class="ti ti-clock" aria-hidden="true"></i> Jadwal</div>
+        <div class="icon-pill"><i class="ti ti-robot" aria-hidden="true"></i> Bot AI</div>
+        <div class="icon-pill"><i class="ti ti-file-text" aria-hidden="true"></i> Log</div>
+        <div class="icon-pill"><i class="ti ti-tag" aria-hidden="true"></i> Label</div>
+        <div class="icon-pill"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Eskalasi</div>
+        <div class="icon-pill"><i class="ti ti-check" aria-hidden="true"></i> Selesai</div>
+        <div class="icon-pill"><i class="ti ti-send" aria-hidden="true"></i> Kirim</div>
+        <div class="icon-pill"><i class="ti ti-refresh" aria-hidden="true"></i> Retry</div>
+        <div class="icon-pill"><i class="ti ti-lock" aria-hidden="true"></i> Aman</div>
+        <div class="icon-pill"><i class="ti ti-phone" aria-hidden="true"></i> Kontak WA</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">08 — Spasi & Grid</div>
+    <div class="section-title">Spacing System</div>
+    <div class="section-sub">Sistem 4px base. Semua margin, padding, dan gap adalah kelipatan 4.</div>
+
+    <div class="full-card">
+      <div class="spacing-row">
+        <div class="spacing-block" style="width:4px;height:16px;"></div>
+        <div class="spacing-meta"><strong style="color:var(--g-dark)">4px</strong> — Gap mikro (ikon ↔ teks)</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-block" style="width:8px;height:22px;"></div>
+        <div class="spacing-meta"><strong style="color:var(--g-dark)">8px</strong> — Gap komponen kecil, badge</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-block" style="width:12px;height:28px;"></div>
+        <div class="spacing-meta"><strong style="color:var(--g-dark)">12px</strong> — Padding dalam card</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-block" style="width:16px;height:34px;"></div>
+        <div class="spacing-meta"><strong style="color:var(--g-dark)">16px</strong> — Gap antar elemen utama</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-block" style="width:24px;height:40px;"></div>
+        <div class="spacing-meta"><strong style="color:var(--g-dark)">24px</strong> — Padding card / section</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-block" style="width:40px;height:46px;border-radius:4px;"></div>
+        <div class="spacing-meta"><strong style="color:var(--g-dark)">40px</strong> — Margin section besar</div>
+      </div>
+      <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--g-border);">
+        <div style="font-size:12px;font-weight:700;color:var(--g-mid);font-family:var(--jakarta);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">Border Radius</div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <div style="background:var(--g-green-light);width:40px;height:40px;border-radius:6px;border:2px solid var(--g-green);"></div>
+          <span style="font-size:12px;color:var(--g-mid);font-family:var(--inter);">6px – tombol kecil</span>
+          <div style="background:var(--g-green-light);width:48px;height:48px;border-radius:10px;border:2px solid var(--g-green);"></div>
+          <span style="font-size:12px;color:var(--g-mid);font-family:var(--inter);">10px – tombol, input</span>
+          <div style="background:var(--g-green-light);width:60px;height:60px;border-radius:14px;border:2px solid var(--g-green);"></div>
+          <span style="font-size:12px;color:var(--g-mid);font-family:var(--inter);">14px – card</span>
+          <div style="background:var(--g-green-light);width:40px;height:40px;border-radius:100px;border:2px solid var(--g-green);"></div>
+          <span style="font-size:12px;color:var(--g-mid);font-family:var(--inter);">pill – badge, chip</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section" style="padding-bottom:0">
+    <div class="section-label">09 — Motion</div>
+    <div class="section-title">Animasi & Transisi</div>
+    <div class="section-sub">Gerak yang terasa alami dan lokal — cepat tapi tidak tergesa, responsif tanpa berlebihan.</div>
+
+    <div class="motion-row">
+      <div class="motion-card">
+        <div class="motion-name">Micro</div>
+        <div class="motion-val">100ms ease-out</div>
+        <div class="motion-use">Hover state, toggle button</div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-name">Standard</div>
+        <div class="motion-val">200ms ease-in-out</div>
+        <div class="motion-use">Modal open, card expand</div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-name">Emphasized</div>
+        <div class="motion-val">350ms cubic-bezier(.34,1.56,.64,1)</div>
+        <div class="motion-use">Notifikasi masuk, success state</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin: 2.5rem 2rem 0; background: var(--g-dark); border-radius: 14px; padding: 1.5rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+    <div>
+      <div style="font-family:var(--jakarta);font-weight:800;font-size:16px;color:#fff;">WabaBot Brand Guidelines</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.4);font-family:var(--inter);margin-top:3px;">v1.0 — Untuk UMKM Indonesia</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="background:rgba(0,211,127,0.15);color:var(--g-lime);font-size:11px;font-family:var(--jakarta);font-weight:700;padding:5px 12px;border-radius:100px;">Plus Jakarta Sans</span>
+      <span style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);font-size:11px;font-family:var(--jakarta);font-weight:700;padding:5px 12px;border-radius:100px;">Inter</span>
+      <span style="background:rgba(0,170,91,0.25);color:var(--g-lime);font-size:11px;font-family:var(--jakarta);font-weight:700;padding:5px 12px;border-radius:100px;">#00AA5B</span>
+    </div>
+  </div>
+
+</div>

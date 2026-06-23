@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balasara — Otomasi WhatsApp untuk UMKM Indonesia</title>
+  <meta name="description" content="Balas pesan WhatsApp pelanggan secara otomatis 24 jam dengan AI. Tingkatkan konversi, kurangi beban kerja, dan catat semua data di Google Sheets. Cocok untuk UMKM Indonesia." />
+  <meta name="keywords" content="whatsapp otomatis, bot whatsapp umkm, whatsapp business api, auto reply wa, balasara" />
+  <meta property="og:title" content="Balasara — Otomasi WhatsApp untuk UMKM Indonesia" />
+  <meta property="og:description" content="Balas pesan WA otomatis 24 jam dengan AI. Konversi lebih tinggi, kerja lebih ringan." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="img/icon_transparent.png" />
+  <link rel="stylesheet" href="css/brand.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+</head>
+<body class="landing-body">
+
+  <!-- ══════════════════════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <a href="#" class="navbar-logo" aria-label="Balasara home">
+      <img src="img/icon_transparent.png" alt="Balasara Logo Icon" class="navbar-icon" aria-hidden="true" />
+      <img src="img/text_transparent.png" alt="Balasara" class="navbar-text-img" />
+    </a>
+
+    <ul class="navbar-links" role="list">
+      <li><a href="#fitur">Fitur</a></li>
+      <li><a href="#cara-kerja">Cara Kerja</a></li>
+      <li><a href="#demo">Demo</a></li>
+      <li><a href="#harga">Harga</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+
+    <div class="navbar-actions">
+      <a href="dashboard.html" class="btn btn-ghost-white btn-sm">Masuk</a>
+      <a href="#mulai" class="btn btn-primary btn-sm">
+        <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+        Coba Gratis
+      </a>
+    </div>
+
+    <button class="navbar-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <i class="ti ti-menu-2"></i>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" role="menu">
+    <a href="#fitur" role="menuitem">Fitur</a>
+    <a href="#cara-kerja" role="menuitem">Cara Kerja</a>
+    <a href="#demo" role="menuitem">Demo</a>
+    <a href="#harga" role="menuitem">Harga</a>
+    <a href="dashboard.html" role="menuitem">Dashboard</a>
+    <a href="dashboard.html" class="btn btn-ghost-white">Masuk</a>
+    <a href="#mulai" class="btn btn-primary">
+      <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+      Coba Gratis 14 Hari
+    </a>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════════════════ -->
+  <section class="hero" id="beranda" aria-labelledby="heroTitle">
+    <div class="hero-bg">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-bg-dot" aria-hidden="true"></div>
+    </div>
+
+    <div class="hero-container">
+      <!-- Copy -->
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot" aria-hidden="true"></span>
+          AI-Powered · Meta WABA · Google Sheets
+        </div>
+
+        <h1 class="hero-title" id="heroTitle">
+          Balas Pesan WA<br>
+          <span class="accent">Otomatis 24 Jam,</span>
+          <span class="line2">Tanpa Kamu Online</span>
+        </h1>
+
+        <p class="hero-sub">
+          Balasara membalas pelangganmu secara otomatis — tanya harga, order, komplain — semua ditangani AI dengan gaya bahasa yang hangat dan natural. Data langsung masuk ke Google Sheets kamu.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="#mulai" class="btn btn-primary btn-lg" id="heroCta">
+            <i class="ti ti-rocket" aria-hidden="true"></i>
+            Mulai Gratis 14 Hari
+          </a>
+          <a href="#demo" class="btn btn-ghost-white btn-lg">
+            <i class="ti ti-player-play" aria-hidden="true"></i>
+            Lihat Demo
+          </a>
+        </div>
+
+        <div class="hero-trust">
+          <span class="hero-trust-label">Dipercaya bersama:</span>
+          <div class="trust-logos">
+            <span class="trust-logo">
+              <i class="ti ti-brand-google" aria-hidden="true"></i>
+              Sheets
+            </span>
+            <span class="trust-logo">
+              <i class="ti ti-brain" aria-hidden="true"></i>
+              GPT-4o
+            </span>
+            <span class="trust-logo">
+              <i class="ti ti-brand-meta" aria-hidden="true"></i>
+              WABA API
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero phone mockup -->
+      <div class="hero-visual">
+        <div class="hero-float-badge hero-float-1" aria-hidden="true">
+          <i class="ti ti-robot"></i>
+          AI Reply dalam 2 detik
+        </div>
+        <div class="hero-float-badge hero-float-2" aria-hidden="true">
+          <i class="ti ti-shield-check"></i>
+          Signature Verified
+        </div>
+        <div class="hero-float-badge hero-float-3" aria-hidden="true">
+          <i class="ti ti-chart-bar"></i>
+          500+ UMKM aktif
+        </div>
+
+        <div class="phone-mockup" aria-label="WhatsApp chat preview">
+          <div class="phone-screen">
+            <div class="phone-wa-header">
+              <div class="phone-wa-avatar" aria-hidden="true">WB</div>
+              <div class="phone-wa-info">
+                <div class="phone-wa-name">Balasara — Toko Berkah</div>
+                <div class="phone-wa-status">
+                  <span class="status-dot" aria-hidden="true"></span>
+                  Online
+                </div>
+              </div>
+            </div>
+            <div class="phone-messages" id="heroMessages" aria-live="polite" aria-label="Live chat demo">
+              <!-- Animated via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wave bottom -->
+    <div class="hero-wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,60 C360,0 1080,60 1440,0 L1440,60 L0,60 Z" fill="var(--g-surface)"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       STATS BAR
+  ══════════════════════════════════════════════════════════ -->
+  <section class="stats-bar" aria-label="Key statistics">
+    <div class="stats-bar-inner">
+      <div class="stat-item">
+        <div class="stat-number">
+          <span data-counter data-target="500" data-suffix="+">0+</span>
+        </div>
+        <div class="stat-label">UMKM Aktif</div>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <div class="stat-number">
+          <span data-counter data-target="1200000" data-suffix="">0</span>
+        </div>
+        <div class="stat-label">Pesan Dibalas / Bulan</div>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <div class="stat-number">
+          <span data-counter data-target="98" data-suffix="%">0%</span>
+          <span class="accent">%</span>
+        </div>
+        <div class="stat-label">Kepuasan Pelanggan</div>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <div class="stat-number">
+          <span data-counter data-target="2" data-suffix="dtk">0dtk</span>
+        </div>
+        <div class="stat-label">Rata-rata Waktu Balas</div>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <div class="stat-number">
+          <span data-counter data-target="15" data-suffix=" mnt">0 mnt</span>
+        </div>
+        <div class="stat-label">Setup Pertama</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       HOW IT WORKS
+  ══════════════════════════════════════════════════════════ -->
+  <section class="section how-section" id="cara-kerja" aria-labelledby="howTitle">
+    <div class="section-inner">
+      <div class="section-header animate-in">
+        <div class="section-label">Cara Kerja</div>
+        <h2 class="section-title" id="howTitle">Dari Pesan Masuk ke Balasan Otomatis</h2>
+        <p class="section-sub">Arsitektur yang sederhana tapi powerful — setiap pesan masuk diproses dalam hitungan milidetik.</p>
+      </div>
+
+      <div class="steps-grid animate-in">
+        <div class="step-card">
+          <div class="step-number">
+            <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+            <span class="step-count" aria-hidden="true">1</span>
+          </div>
+          <h3 class="step-title">Pesan Masuk</h3>
+          <p class="step-desc">Pelanggan kirim pesan ke nomor WhatsApp Business kamu. Webhook Meta langsung menerimanya secara real-time.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">
+            <i class="ti ti-shield-check" aria-hidden="true"></i>
+            <span class="step-count" aria-hidden="true">2</span>
+          </div>
+          <h3 class="step-title">Verifikasi & Filter</h3>
+          <p class="step-desc">Signature diverifikasi, duplikat dicek, jam operasional diperiksa, dan status eskalasi dikonfirmasi.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">
+            <i class="ti ti-brain" aria-hidden="true"></i>
+            <span class="step-count" aria-hidden="true">3</span>
+          </div>
+          <h3 class="step-title">AI Klasifikasi</h3>
+          <p class="step-desc">Satu panggilan AI (GPT-4o mini / Claude Haiku) mengklasifikasi intent DAN menghasilkan reply dalam bahasa natural.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">
+            <i class="ti ti-table" aria-hidden="true"></i>
+            <span class="step-count" aria-hidden="true">4</span>
+          </div>
+          <h3 class="step-title">Catat di Sheets</h3>
+          <p class="step-desc">Reply dikirim, data kontak + deal + log pesan otomatis tersimpan di Google Sheets sebagai CRM kamu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       FEATURES
+  ══════════════════════════════════════════════════════════ -->
+  <section class="section" id="fitur" aria-labelledby="fiturTitle" style="background: var(--g-white);">
+    <div class="section-inner">
+      <div class="section-header animate-in">
+        <div class="section-label">Fitur Unggulan</div>
+        <h2 class="section-title" id="fiturTitle">Semua yang Kamu Butuhkan,<br>Sudah Ada di Dalamnya</h2>
+        <p class="section-sub">Dari reply otomatis hingga CRM, Balasara dirancang khusus untuk kebutuhan bisnis UMKM Indonesia.</p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card animate-in">
+          <div class="feature-icon-wrap">
+            <i class="ti ti-robot" aria-hidden="true"></i>
+          </div>
+          <h3 class="feature-title">AI Reply 24/7</h3>
+          <p class="feature-desc">Bot membalas pesanmu kapan saja — tengah malam, hari libur, atau saat kamu sedang libur. Tidak ada pelanggan yang tertinggal.</p>
+          <span class="badge badge-green feature-tag">GPT-4o mini / Claude Haiku</span>
+        </div>
+        <!-- Feature 2 -->
+        <div class="feature-card animate-in">
+          <div class="feature-icon-wrap">
+            <i class="ti ti-brain" aria-hidden="true"></i>
+          </div>
+          <h3 class="feature-title">Multi-Intent AI</h3>
+          <p class="feature-desc">Satu panggilan AI mendeteksi intent (tanya harga, order, komplain, follow-up) DAN menghasilkan reply — efisien dan hemat biaya.</p>
+          <span class="badge badge-purple feature-tag">~$0.0003 per pesan</span>
+        </div>
+        <!-- Feature 3 -->
+        <div class="feature-card animate-in">
+          <div class="feature-icon-wrap">
+            <i class="ti ti-table" aria-hidden="true"></i>
+          </div>
+          <h3 class="feature-title">Google Sheets CRM</h3>
+          <p class="feature-desc">Semua kontak, pesanan, dan log percakapan otomatis masuk ke Google Sheets. Data kamu, di tempat kamu sendiri. Tidak perlu CRM mahal.</p>
+          <span class="badge badge-dark feature-tag">3 sheet: contacts · deals · logs</span>
+        </div>
+        <!-- Feature 4 -->
+        <div class="feature-card animate-in">
+          <div class="feature-icon-wrap">
+            <i class="ti ti-alert-triangle" aria-hidden="true"></i>
+          </div>
+          <h3 class="feature-title">Eskalasi Otomatis</h3>
+          <p class="feature-desc">Jika ada komplain serius, bot langsung kirim notifikasi ke nomor owner dan freeze percakapan untuk penanganan manual.</p>
+          <span class="badge badge-coral feature-tag">Notif ke owner WA</span>
+        </div>
+        <!-- Feature 5 -->
+        <div class="feature-card animate-in">
+          <div class="feature-icon-wrap">
+            <i class="ti ti-clock" aria-hidden="true"></i>
+          </div>
+          <h3 class="feature-title">Jam Operasional</h3>
+          <p class="feature-desc">Bot hanya aktif di jam yang kamu tentukan (misal 08.00–22.00 WIB). Di luar jam itu, bot kirim pesan "Kami tutup, segera kembali besok".</p>
+          <span class="badge badge-amber feature-tag">Konfigurasi via .env</span>
+        </div>
+        <!-- Feature 6 -->
+        <div class="feature-card animate-in">
+          <div class="feature-icon-wrap">
+            <i class="ti ti-refresh" aria-hidden="true"></i>
+          </div>
+          <h3 class="feature-title">Follow-up Otomatis</h3>
+          <p class="feature-desc">Cron job setiap 30 menit cek pelanggan yang belum dibalas 24 jam dan otomatis kirim pesan follow-up tanpa duplikasi.</p>
+          <span class="badge badge-green feature-tag">Cron tiap 30 menit</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       WHATSAPP DEMO
+  ══════════════════════════════════════════════════════════ -->
+  <section class="section demo-section" id="demo" aria-labelledby="demoTitle">
+    <div class="demo-container" id="demoSection">
+      <!-- Copy -->
+      <div class="demo-copy">
+        <div class="section-label demo-section-label">Live Demo</div>
+        <h2 class="demo-title" id="demoTitle">
+          Lihat Bot Kamu <span>Bekerja</span><br>Secara Real-time
+        </h2>
+        <p class="demo-body">
+          Pilih skenario di bawah dan lihat bagaimana Balasara merespons berbagai jenis pesan pelanggan — dari tanya harga, proses order, hingga menangani komplain dengan bijaksana.
+        </p>
+
+        <div class="demo-scenarios" role="tablist" aria-label="Demo scenarios">
+          <button class="scenario-tab active" data-scenario="price" role="tab" aria-selected="true" id="tabPrice">
+            💬 Tanya Harga
+          </button>
+          <button class="scenario-tab" data-scenario="order" role="tab" aria-selected="false" id="tabOrder">
+            🛍️ Order Produk
+          </button>
+          <button class="scenario-tab" data-scenario="complaint" role="tab" aria-selected="false" id="tabComplaint">
+            ⚠️ Komplain
+          </button>
+        </div>
+
+        <ul class="demo-feature-list" aria-label="Features shown in demo">
+          <li><i class="ti ti-checks" aria-hidden="true"></i> Reply natural dalam Bahasa Indonesia</li>
+          <li><i class="ti ti-checks" aria-hidden="true"></i> Intent terdeteksi dalam 1 panggilan AI</li>
+          <li><i class="ti ti-checks" aria-hidden="true"></i> Data langsung masuk Google Sheets</li>
+          <li><i class="ti ti-checks" aria-hidden="true"></i> Komplain → eskalasi otomatis ke owner</li>
+        </ul>
+
+        <a href="#mulai" class="btn btn-primary btn-lg">
+          <i class="ti ti-rocket" aria-hidden="true"></i>
+          Coba Sendiri Sekarang
+        </a>
+      </div>
+
+      <!-- Phone -->
+      <div class="demo-phone-wrap">
+        <div class="demo-phone">
+          <div class="demo-screen">
+            <div class="demo-wa-header">
+              <div class="phone-wa-avatar" aria-hidden="true">WB</div>
+              <div class="phone-wa-info">
+                <div class="phone-wa-name" style="font-family:var(--font-jakarta);font-weight:700;font-size:13px;color:#fff;">Balasara — Toko Berkah</div>
+                <div class="phone-wa-status" style="font-size:10px;color:rgba(255,255,255,0.7);display:flex;align-items:center;gap:4px;">
+                  <span class="status-dot" aria-hidden="true"></span>
+                  Bot Aktif
+                </div>
+              </div>
+            </div>
+            <div class="demo-chat-area" id="demoChatArea" aria-live="polite" aria-label="Demo chat conversation">
+              <!-- Messages injected by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       PRICING
+  ══════════════════════════════════════════════════════════ -->
+  <section class="section" id="harga" aria-labelledby="hargaTitle">
+    <div class="section-inner">
+      <div class="section-header animate-in">
+        <div class="section-label">Paket Harga</div>
+        <h2 class="section-title" id="hargaTitle">Harga Transparan,<br>Tanpa Biaya Tersembunyi</h2>
+        <p class="section-sub">Mulai gratis, upgrade kapan saja sesuai kebutuhan bisnismu. Tidak ada kontrak jangka panjang.</p>
+      </div>
+
+      <div class="pricing-grid animate-in">
+        <!-- Starter -->
+        <div class="pricing-card">
+          <div class="pricing-tier">Starter</div>
+          <div class="pricing-price">
+            <span class="pricing-amount free">Gratis</span>
+          </div>
+          <p class="pricing-desc">Sempurna untuk memulai dan mencoba fitur dasar Balasara tanpa risiko.</p>
+          <hr class="pricing-divider" />
+          <ul class="pricing-features">
+            <li><i class="ti ti-check" aria-hidden="true"></i> 500 pesan / bulan</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> 1 nomor WhatsApp</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> Google Sheets CRM</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> AI reply (GPT-4o mini)</li>
+            <li class="check-off"><i class="ti ti-minus" aria-hidden="true"></i> Follow-up otomatis</li>
+            <li class="check-off"><i class="ti ti-minus" aria-hidden="true"></i> Eskalasi ke owner</li>
+            <li class="check-off"><i class="ti ti-minus" aria-hidden="true"></i> Custom jam operasional</li>
+          </ul>
+          <a href="#mulai" class="btn btn-secondary" style="width:100%;justify-content:center;">
+            Mulai Gratis
+          </a>
+        </div>
+
+        <!-- Growth — Featured -->
+        <div class="pricing-card featured">
+          <div class="pricing-popular">Paling Populer</div>
+          <div class="pricing-tier">Growth</div>
+          <div class="pricing-price">
+            <span class="pricing-amount" style="color:#fff;">Rp 199K</span>
+          </div>
+          <span class="pricing-period">/ bulan</span>
+          <p class="pricing-desc">Untuk UMKM yang ingin tumbuh. Semua fitur esensial tanpa batas.</p>
+          <hr class="pricing-divider" />
+          <ul class="pricing-features">
+            <li><i class="ti ti-check" aria-hidden="true"></i> 5.000 pesan / bulan</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> 1 nomor WhatsApp</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> Google Sheets CRM</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> AI reply (GPT-4o mini)</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> Follow-up otomatis 24 jam</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> Eskalasi ke owner</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> Custom jam operasional</li>
+          </ul>
+          <a href="#mulai" class="btn btn-primary" style="width:100%;justify-content:center;">
+            <i class="ti ti-rocket" aria-hidden="true"></i>
+            Mulai Sekarang
+          </a>
+        </div>
+
+        <!-- Pro -->
+        <div class="pricing-card">
+          <div class="pricing-tier">Pro</div>
+          <div class="pricing-price">
+            <span class="pricing-amount">Rp 499K</span>
+          </div>
+          <span class="pricing-period">/ bulan</span>
+          <p class="pricing-desc">Untuk bisnis yang serius. Unlimited pesan, multiple nomor, dan prioritas support.</p>
+          <hr class="pricing-divider" />
+          <ul class="pricing-features">
+            <li><i class="ti ti-check" aria-hidden="true"></i> Unlimited pesan</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> 3 nomor WhatsApp</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> Google Sheets CRM</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> AI reply (GPT-4o / Claude)</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> Follow-up otomatis 24 jam</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> Eskalasi & notifikasi</li>
+            <li><i class="ti ti-check" aria-hidden="true"></i> Prioritas support & onboarding</li>
+          </ul>
+          <a href="#mulai" class="btn btn-ghost" style="width:100%;justify-content:center;">
+            Hubungi Kami
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       SETUP / CTA
+  ══════════════════════════════════════════════════════════ -->
+  <section class="section setup-section" id="mulai" aria-labelledby="setupTitle">
+    <div class="setup-container animate-in">
+      <div class="setup-badge">
+        <i class="ti ti-rocket" aria-hidden="true"></i>
+        Siap dalam 15 menit
+      </div>
+      <h2 class="setup-title" id="setupTitle">
+        Aktifkan Bot WA Kamu<br><span>Hari Ini Juga</span>
+      </h2>
+      <p class="setup-sub">
+        Tidak perlu keahlian teknis. Ikuti 3 langkah sederhana dan bot kamu langsung aktif melayani pelanggan.
+      </p>
+
+      <div class="setup-steps" role="list">
+        <div class="setup-step" role="listitem">
+          <div class="setup-step-num" aria-hidden="true">1</div>
+          <div class="setup-step-text">
+            Hubungkan<br>WhatsApp Business
+          </div>
+        </div>
+        <span class="setup-arrow" aria-hidden="true"><i class="ti ti-arrow-right"></i></span>
+        <div class="setup-step" role="listitem">
+          <div class="setup-step-num" aria-hidden="true">2</div>
+          <div class="setup-step-text">
+            Isi Katalog &amp;<br>Google Sheets
+          </div>
+        </div>
+        <span class="setup-arrow" aria-hidden="true"><i class="ti ti-arrow-right"></i></span>
+        <div class="setup-step" role="listitem">
+          <div class="setup-step-num" aria-hidden="true">3</div>
+          <div class="setup-step-text">
+            Bot Langsung<br>Aktif Otomatis!
+          </div>
+        </div>
+      </div>
+
+      <div class="setup-ctas">
+        <a href="dashboard.html" class="btn btn-primary btn-xl" id="startFreeBtn">
+          <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+          Mulai Gratis 14 Hari
+        </a>
+        <a href="dashboard.html" class="btn btn-ghost-white btn-xl">
+          <i class="ti ti-layout-dashboard" aria-hidden="true"></i>
+          Lihat Dashboard
+        </a>
+      </div>
+
+      <p class="setup-guarantee">
+        <i class="ti ti-shield-check" aria-hidden="true"></i>
+        Tidak perlu kartu kredit · Bisa batal kapan saja · Data aman 100%
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════════ -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <a href="#" class="footer-brand-logo" aria-label="Balasara home">
+            <div class="footer-brand-icon" aria-hidden="true">B</div>
+            <span class="footer-brand-name">Bala<span>sara</span></span>
+          </a>
+          <p class="footer-tagline">
+            Sistem otomasi WhatsApp bertenaga AI untuk UMKM Indonesia. Hangat, cepat, dan terpercaya.
+          </p>
+          <div class="footer-socials" aria-label="Social media links">
+            <a href="#" class="footer-social" aria-label="Instagram">
+              <i class="ti ti-brand-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="#" class="footer-social" aria-label="Twitter/X">
+              <i class="ti ti-brand-x" aria-hidden="true"></i>
+            </a>
+            <a href="#" class="footer-social" aria-label="TikTok">
+              <i class="ti ti-brand-tiktok" aria-hidden="true"></i>
+            </a>
+            <a href="#" class="footer-social" aria-label="GitHub">
+              <i class="ti ti-brand-github" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Produk -->
+        <div class="footer-col">
+          <div class="footer-col-title">Produk</div>
+          <ul class="footer-links" role="list">
+            <li><a href="#fitur">Fitur</a></li>
+            <li><a href="#cara-kerja">Cara Kerja</a></li>
+            <li><a href="#demo">Demo</a></li>
+            <li><a href="#harga">Harga</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+          </ul>
+        </div>
+
+        <!-- Developer -->
+        <div class="footer-col">
+          <div class="footer-col-title">Developer</div>
+          <ul class="footer-links" role="list">
+            <li><a href="#">Dokumentasi</a></li>
+            <li><a href="#">GitHub Repo</a></li>
+            <li><a href="#">REST API</a></li>
+            <li><a href="#">Webhook Guide</a></li>
+            <li><a href="#">Contoh .env</a></li>
+          </ul>
+        </div>
+
+        <!-- Perusahaan -->
+        <div class="footer-col">
+          <div class="footer-col-title">Perusahaan</div>
+          <ul class="footer-links" role="list">
+            <li><a href="#">Tentang Kami</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Karir</a></li>
+            <li><a href="#">Kebijakan Privasi</a></li>
+            <li><a href="#">Syarat & Ketentuan</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">
+          © 2026 <span>Balasara</span>. Dibuat dengan ❤️ untuk UMKM Indonesia.
+        </p>
+        <div class="footer-badges" aria-label="Technology stack">
+          <span class="footer-badge">Node.js</span>
+          <span class="footer-badge">Meta WABA</span>
+          <span class="footer-badge">OpenAI</span>
+          <span class="footer-badge">Google Sheets</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/landing.js"></script>
+</body>
+</html>
