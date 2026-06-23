@@ -6,6 +6,20 @@ const SHEET_ID = process.env.GSHEET_ID;
 let _sheets = null;
 async function getSheetsClient() {
   if (_sheets) return _sheets;
+  
+  if (!process.env.GOOGLE_PRIVATE_KEY) {
+    console.warn('[Sheets] Missing GOOGLE_PRIVATE_KEY, running in mock mode');
+    return {
+      spreadsheets: {
+        values: {
+          get: async () => ({ data: { values: [] } }),
+          append: async () => ({}),
+          update: async () => ({})
+        }
+      }
+    };
+  }
+
   const auth = new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
