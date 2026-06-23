@@ -53,12 +53,44 @@ Respond ONLY with valid JSON, no markdown:
     if (process.env.AI_PROVIDER === 'anthropic') {
       return await callAnthropic(systemPrompt, userMessage);
     }
-    return await callOpenAI(systemPrompt, userMessage);
+    if (process.env.AI_PROVIDER === 'openai') {
+      return await callOpenAI(systemPrompt, userMessage);
+    }
+    // Default: use Gemini (free tier available)
+    return await callGemini(systemPrompt, userMessage);
   } catch (err) {
     console.error('[AI] API call failed:', err.message);
     return null; // caller handles fallback
   }
 }
+
+async function callGemini(systemPrompt, userMessage) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error('GEMINI_API_KEY not set');
+
+  const res = await axios.post(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+    {
+      contents: [
+        {
+          role: 'user',
+          parts: [{ text: `${systemPrompt}\n\nCustomer message: ${userMessage}` }],
+        },
+      ],
+      generationConfig: {
+        temperature: 0.3,
+        maxOutputTokens: 300,
+      },
+    },
+    { timeout: 10000 }
+  );
+
+  let raw = res.data.candidates[0].content.parts[0].text.trim();
+  // Strip markdown code fences if Gemini wraps JSON
+  raw = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+  return JSON.parse(raw);
+}
+
 
 async function callOpenAI(systemPrompt, userMessage) {
   const res = await axios.post(
