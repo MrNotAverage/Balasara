@@ -11,7 +11,18 @@ async function processMessage(payload) {
   let entry, message;
   try {
     entry = payload.entry[0].changes[0].value;
-    // Skip non-message events (status updates, read receipts, etc.)
+    
+    // Log message status updates (delivered, read, failed)
+    if (entry.statuses) {
+      const status = entry.statuses[0];
+      console.log(`[WA Status] Message ${status.id} is now ${status.status}`);
+      if (status.errors) {
+        console.error(`[WA Error] Delivery failed:`, JSON.stringify(status.errors));
+      }
+      return;
+    }
+
+    // Skip non-message events
     if (!entry.messages) return;
     message = entry.messages[0];
   } catch {
