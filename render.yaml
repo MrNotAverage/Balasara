@@ -1,25 +1,25 @@
-# Render deployment configuration
+# Render deployment configuration — Multi-Tenant SaaS
 services:
   - type: web
     name: balasara-backend
     runtime: node
     rootDir: backend
-    buildCommand: npm install
+    buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 3000
-      - key: WABA_VERIFY_TOKEN
-        value: balasara_secret
+      - key: DATABASE_URL
+        value: file:/data/balasara.db
       - key: FRONTEND_URL
         value: https://balasara.vercel.app
-      - key: WABA_ACCESS_TOKEN
+      - key: GEMINI_API_KEY
         value: placeholder_for_now
-      - key: WABA_PHONE_ID
-        value: placeholder_for_now
-      - key: WABA_APP_SECRET
-        value: placeholder_for_now
-      - key: OPENAI_API_KEY
-        value: placeholder_for_now
+      - key: JWT_SECRET
+        value: placeholder_change_this_to_a_random_string
+    disk:
+      name: balasara-db
+      mountPath: /data
+      sizeGB: 1

@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Tenant {
+  id            Int         @id @default(autoincrement())
+  email         String      @unique
+  password      String
+  businessName  String
+  productCatalog String     @default("")
+  priceList     String      @default("")
+  operatingHours String     @default("08.00-22.00 WIB")
+  customPrompt  String      @default("")
+  plan          String      @default("trial")  // trial | basic | pro
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  metaConfig    MetaConfig?
+}
+
+model MetaConfig {
+  id              Int     @id @default(autoincrement())
+  tenantId        Int     @unique
+  tenant          Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  wabaPhoneId     String  @default("")
+  wabaAccessToken String  @default("")
+  wabaAppSecret   String  @default("")
+  verifyToken     String  @default("")
+  webhookActive   Boolean @default(false)
+}
