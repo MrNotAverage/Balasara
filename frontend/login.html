@@ -210,9 +210,9 @@
 
   <script>
     /* ══════════════════════════════════════════════════════
-       CONFIGURATION — Change to your backend URL
+       CONFIGURATION — Backend API URL
     ══════════════════════════════════════════════════════ */
-    const API_BASE = window.BALASARA_API || 'http://localhost:3000';
+    const API_BASE = window.BALASARA_API || (window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://balasara.onrender.com');
 
     /* ── Redirect if already logged in ─────────────────── */
     if (localStorage.getItem('balasara_token')) {

@@ -4,7 +4,7 @@
    ============================================================ */
 
 /* ── Config ─────────────────────────────────────────────────── */
-const API_BASE  = window.BALASARA_API || 'http://localhost:3000';
+const API_BASE  = window.BALASARA_API || (window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://balasara.onrender.com');
 const IS_DEMO   = localStorage.getItem('balasara_demo') === 'true';
 
 /* ── Auth helpers ────────────────────────────────────────────── */
