@@ -62,11 +62,29 @@ async function processMessage(payload, metaConfig) {
   const aiResult = await ai.classifyAndRespond(text, tenant);
   const intent = aiResult?.intent || 'UNKNOWN';
   const reply = aiResult?.reply || ai.getFallback(intent);
+  const confidence = aiResult?.confidence || 0;
 
   console.log(`[AI][Tenant:${tenant.id}] Intent: ${intent} | Reply: ${reply.slice(0, 60)}`);
 
   // ── Send reply ─────────────────────────────────────────────────────────
   await wa.sendText(phone, reply, metaConfig);
+
+  // ── Persist message to database ────────────────────────────────────────
+  try {
+    const prisma = require('./db');
+    await prisma.message.create({
+      data: {
+        tenantId: tenant.id,
+        from: phone,
+        text,
+        intent,
+        reply,
+        confidence,
+      },
+    });
+  } catch (dbErr) {
+    console.error('[DB] Failed to save message log:', dbErr.message);
+  }
 
   // ── Handle escalation ─────────────────────────────────────────────────
   if (intent === 'COMPLAINT' && process.env.ESCALATION_PHONE) {

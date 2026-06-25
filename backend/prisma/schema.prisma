@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Tenant {
@@ -19,6 +20,19 @@ model Tenant {
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   metaConfig    MetaConfig?
+  messages      Message[]
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  tenantId   Int
+  tenant     Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  from       String   // customer phone number
+  text       String   // inbound message text
+  intent     String   @default("UNKNOWN")
+  reply      String   @default("") // bot reply sent
+  confidence Float    @default(0)
+  createdAt  DateTime @default(now())
 }
 
 model MetaConfig {

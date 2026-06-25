@@ -6,8 +6,15 @@
   <title>Dashboard — Balasara</title>
   <meta name="description" content="Balasara Dashboard — Kelola percakapan WhatsApp, kontak, pesanan, dan statistik bot kamu." />
   <link rel="icon" type="image/png" href="img/icon_transparent.png" />
-  <link rel="stylesheet" href="css/brand.css" />
-  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/brand.css?v=2" />
+  <link rel="stylesheet" href="css/dashboard.css?v=2" />
+  <script>
+    /* ── Auth Guard — runs before page renders ── */
+    (function() {
+      const token = localStorage.getItem('balasara_token');
+      if (!token) window.location.replace('login.html');
+    })();
+  </script>
 </head>
 <body class="dashboard-body">
 
@@ -59,7 +66,13 @@
         <span class="tooltip">Statistik</span>
       </a>
 
-      <div class="sidebar-section-label" style="margin-top:8px;">Konfigurasi</div>
+      <div class="sidebar-section-label" style="margin-top:8px;">Log & Konfigurasi</div>
+
+      <a class="nav-item" data-panel="panelMessageLog" href="#" role="button" id="navMessageLog">
+        <div class="nav-icon"><i class="ti ti-terminal-2" aria-hidden="true"></i></div>
+        <span class="nav-label">Log Pesan</span>
+        <span class="tooltip">Log Pesan</span>
+      </a>
 
       <a class="nav-item" data-panel="panelBot" href="#" role="button" id="navBot">
         <div class="nav-icon"><i class="ti ti-robot" aria-hidden="true"></i></div>
@@ -80,9 +93,13 @@
         <div class="bot-status-dot" aria-hidden="true"></div>
         <div class="bot-status-text">
           <span class="bot-status-label">Bot Aktif</span>
-          <span class="bot-status-sub">08.00–22.00 WIB</span>
+          <span class="bot-status-sub" id="sidebarHours">08.00–22.00 WIB</span>
         </div>
       </div>
+      <button class="sidebar-logout-btn" id="sidebarLogoutBtn" title="Logout" aria-label="Logout" onclick="localStorage.clear(); window.location.replace('login.html');">
+        <i class="ti ti-logout" aria-hidden="true"></i>
+        <span class="sidebar-toggle-label">Logout</span>
+      </button>
       <div class="sidebar-toggle" id="sidebarToggle" role="button" aria-label="Toggle sidebar" tabindex="0">
         <i class="ti ti-layout-sidebar-left-collapse" aria-hidden="true"></i>
         <span class="sidebar-toggle-label">Tutup Sidebar</span>
@@ -112,14 +129,29 @@
         <a href="index.html" class="topbar-icon-btn" title="Lihat Landing Page" aria-label="View landing page">
           <i class="ti ti-home" aria-hidden="true"></i>
         </a>
-        <button class="topbar-icon-btn" id="notifBtn" title="Notifikasi" aria-label="Notifications (3 new)">
+        <button class="topbar-icon-btn" id="notifBtn" title="Notifikasi" aria-label="Notifications">
           <i class="ti ti-bell" aria-hidden="true"></i>
           <span class="notif-dot" aria-hidden="true"></span>
         </button>
         <button class="topbar-icon-btn" title="Bantuan" aria-label="Help">
           <i class="ti ti-help-circle" aria-hidden="true"></i>
         </button>
-        <div class="topbar-avatar" role="button" tabindex="0" aria-label="User menu — Toko Berkah Jaya">TB</div>
+        <div class="topbar-user-menu" id="topbarUserMenu">
+          <div class="topbar-avatar" id="topbarAvatar" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false" onclick="document.getElementById('userDropdown').classList.toggle('open'); event.stopPropagation();">—</div>
+          <div class="user-dropdown" id="userDropdown" role="menu" aria-label="User menu">
+            <div class="user-dropdown-header">
+              <div class="user-dropdown-name" id="dropdownBizName">Loading...</div>
+              <div class="user-dropdown-email" id="dropdownEmail"></div>
+            </div>
+            <div class="user-dropdown-divider"></div>
+            <button class="user-dropdown-item" id="dropdownSettingsBtn" role="menuitem">
+              <i class="ti ti-settings"></i> Pengaturan Akun
+            </button>
+            <button class="user-dropdown-item danger" id="dropdownLogoutBtn" role="menuitem" onclick="localStorage.clear(); window.location.replace('login.html');">
+              <i class="ti ti-logout"></i> Logout
+            </button>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -870,56 +902,164 @@ Diskon: min. 10 pcs dapat 10%</textarea>
 
 
       <!-- ╔══════════════════════════════════════════════╗
+           ║  MESSAGE LOG PANEL                          ║
+           ╚══════════════════════════════════════════════╝ -->
+      <div class="panel" id="panelMessageLog">
+        <div class="dash-card" style="max-width:100%;">
+          <div class="dash-card-header">
+            <div class="dash-card-title">
+              <i class="ti ti-terminal-2" aria-hidden="true"></i>
+              Log Pesan Masuk
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <select id="msgLogIntentFilter" class="input" style="padding:6px 12px;font-size:13px;min-width:160px;" aria-label="Filter by intent">
+                <option value="ALL">Semua Intent</option>
+                <option value="PRICE_INQUIRY">Tanya Harga</option>
+                <option value="ORDER_INTENT">Order</option>
+                <option value="COMPLAINT">Komplain</option>
+                <option value="GENERAL_INFO">Info Umum</option>
+                <option value="FOLLOW_UP_CHECK">Follow-up</option>
+                <option value="UNKNOWN">Unknown</option>
+              </select>
+              <button class="btn btn-secondary btn-sm" id="msgLogRefreshBtn" aria-label="Refresh message log">
+                <i class="ti ti-refresh" aria-hidden="true"></i> Refresh
+              </button>
+            </div>
+          </div>
+          <div class="dash-card-body" style="padding:0;">
+            <!-- Stats strip -->
+            <div id="msgLogStats" class="msglog-stats-strip">
+              <div class="mls-item"><span class="mls-num" id="mlsTotal">—</span><span class="mls-label">Total Pesan</span></div>
+              <div class="mls-item"><span class="mls-num" id="mlsToday">—</span><span class="mls-label">Hari Ini</span></div>
+              <div class="mls-item"><span class="mls-num" id="mlsOrders">—</span><span class="mls-label">Order</span></div>
+              <div class="mls-item"><span class="mls-num" id="mlsComplaints">—</span><span class="mls-label">Komplain</span></div>
+            </div>
+            <!-- Table -->
+            <div class="msglog-table-wrap" role="region" aria-label="Message log table" tabindex="0">
+              <table class="msglog-table" aria-label="Incoming messages">
+                <thead>
+                  <tr>
+                    <th scope="col">Waktu</th>
+                    <th scope="col">Dari (Nomor)</th>
+                    <th scope="col">Pesan Pelanggan</th>
+                    <th scope="col">Intent AI</th>
+                    <th scope="col">Konfiden</th>
+                    <th scope="col">Balasan Bot</th>
+                  </tr>
+                </thead>
+                <tbody id="msgLogTbody">
+                  <tr class="msglog-empty-row">
+                    <td colspan="6">
+                      <div class="msglog-empty">
+                        <i class="ti ti-loader-2" style="animation:spin 1s linear infinite;"></i>
+                        <span>Memuat data pesan...</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Pagination -->
+            <div class="msglog-pagination" id="msgLogPagination">
+              <button class="btn btn-secondary btn-sm" id="msgLogPrevBtn" disabled>
+                <i class="ti ti-chevron-left"></i> Sebelumnya
+              </button>
+              <span class="msglog-page-info" id="msgLogPageInfo">Halaman 1</span>
+              <button class="btn btn-secondary btn-sm" id="msgLogNextBtn" disabled>
+                Selanjutnya <i class="ti ti-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /panelMessageLog -->
+
+      <!-- ╔══════════════════════════════════════════════╗
            ║  SETTINGS PANEL                             ║
            ╚══════════════════════════════════════════════╝ -->
       <div class="panel" id="panelSettings">
-        <div class="dash-card" style="max-width:600px;">
-          <div class="dash-card-header">
-            <div class="dash-card-title">
-              <i class="ti ti-settings" aria-hidden="true"></i>
-              Pengaturan Akun
+        <div style="display:flex;flex-direction:column;gap:20px;max-width:680px;">
+
+          <!-- Account card -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title"><i class="ti ti-user-circle" aria-hidden="true"></i> Profil Akun</div>
             </div>
-          </div>
-          <div class="dash-card-body">
-            <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;padding:20px;background:var(--g-surface);border-radius:var(--r-lg);">
-              <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--g-green),var(--g-teal));display:flex;align-items:center;justify-content:center;font-family:var(--font-jakarta);font-weight:800;font-size:20px;color:#fff;box-shadow:var(--shadow-green);">TB</div>
-              <div>
-                <div style="font-family:var(--font-jakarta);font-weight:700;font-size:16px;color:var(--g-dark);">Toko Berkah Jaya</div>
-                <div style="font-family:var(--font-inter);font-size:13px;color:var(--g-muted);">tokoberkah@gmail.com</div>
-                <span class="badge badge-green" style="margin-top:4px;">Paket Growth</span>
+            <div class="dash-card-body">
+              <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;padding:18px;background:var(--g-surface);border-radius:var(--r-lg);">
+                <div id="settingsAvatarCircle" style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--g-green),var(--g-teal));display:flex;align-items:center;justify-content:center;font-family:var(--font-jakarta);font-weight:800;font-size:20px;color:#fff;">—</div>
+                <div>
+                  <div id="settingsBizNameDisplay" style="font-family:var(--font-jakarta);font-weight:700;font-size:16px;color:var(--g-dark);">Loading...</div>
+                  <div id="settingsEmailDisplay" style="font-family:var(--font-inter);font-size:13px;color:var(--g-muted);"></div>
+                  <span id="settingsPlanBadge" class="badge badge-green" style="margin-top:4px;">Trial</span>
+                </div>
               </div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:14px;">
-              <div>
-                <label class="input-label" for="settingsEmail">Email</label>
-                <input class="input" id="settingsEmail" value="tokoberkah@gmail.com" type="email" />
-              </div>
-              <div>
-                <label class="input-label" for="settingsWaNumber">Nomor WhatsApp Business</label>
-                <input class="input" id="settingsWaNumber" value="+62 812-3456-7890" />
-              </div>
-              <div>
-                <label class="input-label" for="settingsGsheetId">Google Sheet ID</label>
-                <input class="input" id="settingsGsheetId" value="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms" />
-              </div>
-              <div style="display:flex;gap:10px;">
-                <button class="btn btn-primary" style="flex:1;justify-content:center;">
-                  <i class="ti ti-device-floppy" aria-hidden="true"></i>
-                  Simpan
-                </button>
-                <button class="btn btn-danger btn-sm" style="justify-content:center;">
-                  <i class="ti ti-logout" aria-hidden="true"></i>
-                  Logout
-                </button>
+              <div style="display:flex;flex-direction:column;gap:14px;">
+                <div>
+                  <label class="input-label" for="settingsBusinessName">Nama Bisnis</label>
+                  <input class="input" id="settingsBusinessName" type="text" placeholder="Nama toko Anda" />
+                </div>
+                <div style="display:flex;gap:10px;">
+                  <button class="btn btn-primary" id="saveBusinessNameBtn" style="justify-content:center;">
+                    <i class="ti ti-device-floppy" aria-hidden="true"></i> Simpan Nama
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+
+          <!-- WhatsApp API credentials -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Kredensial WhatsApp API</div>
+            </div>
+            <div class="dash-card-body">
+              <div style="display:flex;flex-direction:column;gap:14px;">
+                <div>
+                  <label class="input-label" for="settingsPhoneId">Phone Number ID (WABA)</label>
+                  <input class="input" id="settingsPhoneId" type="text" placeholder="123456789012345" />
+                </div>
+                <div>
+                  <label class="input-label" for="settingsAccessToken">Access Token</label>
+                  <input class="input" id="settingsAccessToken" type="password" placeholder="EAA..." />
+                </div>
+                <div>
+                  <label class="input-label" for="settingsAppSecret">App Secret</label>
+                  <input class="input" id="settingsAppSecret" type="password" placeholder="App Secret dari Meta" />
+                </div>
+                <div>
+                  <label class="input-label" for="settingsVerifyToken">Verify Token (Webhook)</label>
+                  <input class="input" id="settingsVerifyToken" type="text" placeholder="Token unik untuk verifikasi webhook" />
+                </div>
+                <div style="padding:12px 14px;background:rgba(0,170,91,0.06);border:1px solid rgba(0,170,91,0.15);border-radius:var(--r-sm);">
+                  <div style="font-family:var(--font-inter);font-size:12px;color:var(--g-muted);margin-bottom:4px;">URL Webhook Anda</div>
+                  <div id="webhookUrlDisplay" style="font-family:monospace;font-size:13px;color:var(--g-dark);word-break:break-all;">https://your-backend.com/webhook</div>
+                </div>
+                <button class="btn btn-primary" id="saveMetaBtn" style="justify-content:center;">
+                  <i class="ti ti-shield-check" aria-hidden="true"></i> Simpan Kredensial WhatsApp
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Danger zone -->
+          <div class="dash-card" style="border-color:rgba(255,107,74,0.2);">
+            <div class="dash-card-header">
+              <div class="dash-card-title" style="color:var(--g-coral);"><i class="ti ti-alert-triangle"></i> Zona Berbahaya</div>
+            </div>
+            <div class="dash-card-body">
+              <p style="font-family:var(--font-inter);font-size:13px;color:var(--g-muted);margin-bottom:16px;">Tindakan ini tidak dapat dibatalkan. Pastikan Anda yakin sebelum melanjutkan.</p>
+              <button class="btn btn-danger" id="logoutBtnSettings" style="justify-content:center;" onclick="localStorage.clear(); window.location.replace('login.html');">
+                <i class="ti ti-logout" aria-hidden="true"></i> Logout dari Dashboard
+              </button>
+            </div>
+          </div>
+
         </div>
       </div><!-- /panelSettings -->
 
     </main>
   </div><!-- /dashboard-main -->
 
-  <script src="js/dashboard.js"></script>
+  <script src="js/dashboard.js?v=2"></script>
 </body>
 </html>

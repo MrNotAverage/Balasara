@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Balasara</title>
+  <meta name="description" content="Masuk ke dashboard Balasara — WhatsApp Auto-Response untuk bisnis Anda." />
+  <link rel="icon" type="image/png" href="img/icon_transparent.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="css/brand.css" />
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body class="login-body">
+
+  <!-- Animated background particles -->
+  <div class="login-bg" aria-hidden="true">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+    <div class="grid-lines"></div>
+  </div>
+
+  <div class="login-wrapper">
+
+    <!-- Left panel: branding -->
+    <div class="login-brand-panel" aria-hidden="true">
+      <div class="brand-content">
+        <div class="brand-logo-area">
+          <img src="img/icon_transparent.png" alt="Balasara" class="brand-icon" />
+          <img src="img/text_transparent.png" alt="Balasara" class="brand-wordmark" />
+        </div>
+        <p class="brand-tagline">AI-powered WhatsApp auto-response untuk bisnis Indonesia. Balas pelanggan 24/7 secara otomatis.</p>
+        <div class="feature-pills">
+          <div class="feat-pill"><i class="ti ti-robot"></i> AI Gemini 1.5</div>
+          <div class="feat-pill"><i class="ti ti-message-dots"></i> Auto-Reply 24/7</div>
+          <div class="feat-pill"><i class="ti ti-chart-bar"></i> Analytics Lengkap</div>
+          <div class="feat-pill"><i class="ti ti-shield-check"></i> Multi-Tenant Aman</div>
+        </div>
+        <div class="brand-stats">
+          <div class="bstat"><span class="bstat-num">10K+</span><span class="bstat-label">Pesan/hari</span></div>
+          <div class="bstat-div"></div>
+          <div class="bstat"><span class="bstat-num">500+</span><span class="bstat-label">Bisnis Aktif</span></div>
+          <div class="bstat-div"></div>
+          <div class="bstat"><span class="bstat-num">99.9%</span><span class="bstat-label">Uptime</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right panel: form -->
+    <div class="login-form-panel">
+      <div class="login-card">
+
+        <!-- Tab switcher -->
+        <div class="auth-tabs" role="tablist" aria-label="Authentication tabs">
+          <button class="auth-tab active" id="tabLogin" role="tab" aria-selected="true" aria-controls="formLogin">
+            Masuk
+          </button>
+          <button class="auth-tab" id="tabRegister" role="tab" aria-selected="false" aria-controls="formRegister">
+            Daftar Gratis
+          </button>
+          <div class="tab-indicator" id="tabIndicator"></div>
+        </div>
+
+        <!-- Alert box -->
+        <div class="auth-alert" id="authAlert" role="alert" aria-live="polite" style="display:none;"></div>
+
+        <!-- ── LOGIN FORM ── -->
+        <form id="formLogin" role="tabpanel" aria-labelledby="tabLogin" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="loginEmail">Email</label>
+            <div class="input-wrap">
+              <i class="ti ti-mail input-icon" aria-hidden="true"></i>
+              <input
+                type="email"
+                id="loginEmail"
+                class="form-input"
+                placeholder="email@bisnis.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="loginPassword">
+              Password
+              <button type="button" class="forgot-link" id="forgotBtn" tabindex="0">Lupa password?</button>
+            </label>
+            <div class="input-wrap">
+              <i class="ti ti-lock input-icon" aria-hidden="true"></i>
+              <input
+                type="password"
+                id="loginPassword"
+                class="form-input"
+                placeholder="••••••••"
+                autocomplete="current-password"
+                required
+              />
+              <button type="button" class="toggle-pw" id="toggleLoginPw" aria-label="Show password">
+                <i class="ti ti-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" id="loginBtn">
+            <span class="btn-text">Masuk ke Dashboard</span>
+            <i class="ti ti-arrow-right btn-icon" aria-hidden="true"></i>
+          </button>
+
+          <div class="auth-divider"><span>atau</span></div>
+
+          <button type="button" class="btn-secondary" id="demoBtn">
+            <i class="ti ti-player-play" aria-hidden="true"></i>
+            Coba Demo (Tanpa Login)
+          </button>
+        </form>
+
+        <!-- ── REGISTER FORM ── -->
+        <form id="formRegister" role="tabpanel" aria-labelledby="tabRegister" style="display:none;" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="regBusiness">Nama Bisnis</label>
+            <div class="input-wrap">
+              <i class="ti ti-building-store input-icon" aria-hidden="true"></i>
+              <input
+                type="text"
+                id="regBusiness"
+                class="form-input"
+                placeholder="Toko Berkah Jaya"
+                autocomplete="organization"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regEmail">Email</label>
+            <div class="input-wrap">
+              <i class="ti ti-mail input-icon" aria-hidden="true"></i>
+              <input
+                type="email"
+                id="regEmail"
+                class="form-input"
+                placeholder="email@bisnis.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regPassword">Password</label>
+            <div class="input-wrap">
+              <i class="ti ti-lock input-icon" aria-hidden="true"></i>
+              <input
+                type="password"
+                id="regPassword"
+                class="form-input"
+                placeholder="Min. 8 karakter"
+                autocomplete="new-password"
+                required
+                minlength="8"
+              />
+              <button type="button" class="toggle-pw" id="toggleRegPw" aria-label="Show password">
+                <i class="ti ti-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="pw-strength-bar" id="pwStrengthBar" aria-hidden="true">
+              <div class="pw-bar-fill" id="pwBarFill"></div>
+            </div>
+            <div class="pw-strength-label" id="pwStrengthLabel"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regConfirm">Konfirmasi Password</label>
+            <div class="input-wrap">
+              <i class="ti ti-lock-check input-icon" aria-hidden="true"></i>
+              <input
+                type="password"
+                id="regConfirm"
+                class="form-input"
+                placeholder="••••••••"
+                autocomplete="new-password"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="terms-row">
+            <input type="checkbox" id="termsCheck" required />
+            <label for="termsCheck">Saya setuju dengan <a href="#" class="terms-link">Syarat & Ketentuan</a> Balasara</label>
+          </div>
+
+          <button type="submit" class="btn-primary" id="registerBtn">
+            <span class="btn-text">Buat Akun Gratis</span>
+            <i class="ti ti-user-plus btn-icon" aria-hidden="true"></i>
+          </button>
+        </form>
+
+        <p class="login-footer-note">
+          Dengan masuk, Anda menyetujui bahwa data Anda diproses sesuai kebijakan privasi Balasara.
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    /* ══════════════════════════════════════════════════════
+       CONFIGURATION — Change to your backend URL
+    ══════════════════════════════════════════════════════ */
+    const API_BASE = window.BALASARA_API || 'http://localhost:3000';
+
+    /* ── Redirect if already logged in ─────────────────── */
+    if (localStorage.getItem('balasara_token')) {
+      window.location.replace('dashboard.html');
+    }
+
+    /* ── Tab switching ──────────────────────────────────── */
+    const tabLogin    = document.getElementById('tabLogin');
+    const tabRegister = document.getElementById('tabRegister');
+    const formLogin   = document.getElementById('formLogin');
+    const formRegister = document.getElementById('formRegister');
+    const tabIndicator = document.getElementById('tabIndicator');
+
+    function setTab(tab) {
+      const isLogin = tab === 'login';
+      tabLogin.classList.toggle('active', isLogin);
+      tabRegister.classList.toggle('active', !isLogin);
+      tabLogin.setAttribute('aria-selected', isLogin);
+      tabRegister.setAttribute('aria-selected', !isLogin);
+      formLogin.style.display    = isLogin ? '' : 'none';
+      formRegister.style.display = isLogin ? 'none' : '';
+      tabIndicator.style.transform = isLogin ? 'translateX(0)' : 'translateX(100%)';
+      hideAlert();
+    }
+
+    tabLogin.addEventListener('click', () => setTab('login'));
+    tabRegister.addEventListener('click', () => setTab('register'));
+
+    /* ── Alert helpers ──────────────────────────────────── */
+    const authAlert = document.getElementById('authAlert');
+    function showAlert(msg, type = 'error') {
+      authAlert.textContent = msg;
+      authAlert.className = `auth-alert ${type}`;
+      authAlert.style.display = 'block';
+    }
+    function hideAlert() { authAlert.style.display = 'none'; }
+
+    /* ── Loading state ──────────────────────────────────── */
+    function setLoading(btn, loading) {
+      const text = btn.querySelector('.btn-text');
+      const icon = btn.querySelector('.btn-icon');
+      if (loading) {
+        btn.disabled = true;
+        btn.classList.add('loading');
+        if (text) text.textContent = 'Memproses...';
+        if (icon) icon.className = 'ti ti-loader-2 btn-icon spin';
+      } else {
+        btn.disabled = false;
+        btn.classList.remove('loading');
+      }
+    }
+
+    /* ── Toggle password visibility ─────────────────────── */
+    function setupToggle(btnId, inputId) {
+      document.getElementById(btnId)?.addEventListener('click', () => {
+        const inp = document.getElementById(inputId);
+        const btn = document.getElementById(btnId);
+        const isHidden = inp.type === 'password';
+        inp.type = isHidden ? 'text' : 'password';
+        btn.querySelector('i').className = `ti ${isHidden ? 'ti-eye-off' : 'ti-eye'}`;
+      });
+    }
+    setupToggle('toggleLoginPw', 'loginPassword');
+    setupToggle('toggleRegPw', 'regPassword');
+
+    /* ── Password strength ──────────────────────────────── */
+    const regPw = document.getElementById('regPassword');
+    regPw?.addEventListener('input', () => {
+      const v = regPw.value;
+      let score = 0;
+      if (v.length >= 8) score++;
+      if (/[A-Z]/.test(v)) score++;
+      if (/[0-9]/.test(v)) score++;
+      if (/[^A-Za-z0-9]/.test(v)) score++;
+      const fill = document.getElementById('pwBarFill');
+      const label = document.getElementById('pwStrengthLabel');
+      const levels = ['', 'Lemah', 'Cukup', 'Bagus', 'Kuat'];
+      const colors = ['', '#FF6B4A', '#F5A623', '#00AA5B', '#00d46a'];
+      fill.style.width = `${score * 25}%`;
+      fill.style.background = colors[score];
+      label.textContent = levels[score];
+      label.style.color = colors[score];
+    });
+
+    /* ── LOGIN ──────────────────────────────────────────── */
+    document.getElementById('formLogin').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAlert();
+      const email    = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const btn = document.getElementById('loginBtn');
+      const origText = btn.querySelector('.btn-text').textContent;
+
+      if (!email || !password) return showAlert('Email dan password wajib diisi.');
+      setLoading(btn, true);
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Login gagal.');
+
+        localStorage.setItem('balasara_token', data.token);
+        localStorage.setItem('balasara_tenant_id', data.tenantId);
+        localStorage.setItem('balasara_business', data.businessName);
+
+        showAlert('✅ Berhasil masuk! Mengarahkan...', 'success');
+        setTimeout(() => window.location.replace('dashboard.html'), 800);
+      } catch (err) {
+        showAlert(err.message);
+        btn.querySelector('.btn-text').textContent = origText;
+        btn.querySelector('.btn-icon').className = 'ti ti-arrow-right btn-icon';
+        setLoading(btn, false);
+      }
+    });
+
+    /* ── REGISTER ─────────────────────────────────────────── */
+    document.getElementById('formRegister').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAlert();
+      const businessName = document.getElementById('regBusiness').value.trim();
+      const email        = document.getElementById('regEmail').value.trim();
+      const password     = document.getElementById('regPassword').value;
+      const confirm      = document.getElementById('regConfirm').value;
+      const terms        = document.getElementById('termsCheck').checked;
+      const btn = document.getElementById('registerBtn');
+      const origText = btn.querySelector('.btn-text').textContent;
+
+      if (!businessName || !email || !password) return showAlert('Semua kolom wajib diisi.');
+      if (password !== confirm) return showAlert('Konfirmasi password tidak cocok.');
+      if (password.length < 8) return showAlert('Password minimal 8 karakter.');
+      if (!terms) return showAlert('Harap setujui syarat & ketentuan.');
+      setLoading(btn, true);
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, businessName }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Registrasi gagal.');
+
+        localStorage.setItem('balasara_token', data.token);
+        localStorage.setItem('balasara_tenant_id', data.tenantId);
+        localStorage.setItem('balasara_business', data.businessName);
+
+        showAlert(`🎉 Selamat datang, ${data.businessName}! Mengarahkan ke dashboard...`, 'success');
+        setTimeout(() => window.location.replace('dashboard.html'), 1000);
+      } catch (err) {
+        showAlert(err.message);
+        btn.querySelector('.btn-text').textContent = origText;
+        btn.querySelector('.btn-icon').className = 'ti ti-user-plus btn-icon';
+        setLoading(btn, false);
+      }
+    });
+
+    /* ── Demo mode ─────────────────────────────────────────── */
+    document.getElementById('demoBtn')?.addEventListener('click', () => {
+      localStorage.setItem('balasara_token', 'demo_mode');
+      localStorage.setItem('balasara_business', 'Demo Toko');
+      localStorage.setItem('balasara_demo', 'true');
+      window.location.replace('dashboard.html');
+    });
+
+    /* ── Forgot password ───────────────────────────────────── */
+    document.getElementById('forgotBtn')?.addEventListener('click', () => {
+      showAlert('Fitur reset password akan segera tersedia. Hubungi admin Balasara.', 'info');
+    });
+  </script>
+</body>
+</html>

@@ -73,4 +73,63 @@ router.put('/meta', requireAuth, async (req, res) => {
   }
 });
 
+// ── GET /settings/messages — Paginated message log ──────────────────────────
+router.get('/messages', requireAuth, async (req, res) => {
+  try {
+    const page  = Math.max(1, parseInt(req.query.page  || '1', 10));
+    const limit = Math.min(100, parseInt(req.query.limit || '50', 10));
+    const skip  = (page - 1) * limit;
+    const intent = req.query.intent || undefined; // optional filter
+
+    const where = {
+      tenantId: req.tenantId,
+      ...(intent && intent !== 'ALL' && { intent }),
+    };
+
+    const [messages, total] = await Promise.all([
+      prisma.message.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        take: limit,
+        skip,
+      }),
+      prisma.message.count({ where }),
+    ]);
+
+    res.json({ messages, total, page, limit, pages: Math.ceil(total / limit) });
+  } catch (err) {
+    console.error('[Settings] GET /messages error:', err.message);
+    res.status(500).json({ error: 'Server error.' });
+  }
+});
+
+// ── GET /settings/stats — Summary stats for overview panel ──────────────────
+router.get('/stats', requireAuth, async (req, res) => {
+  try {
+    const tenantId = req.tenantId;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const [totalMessages, todayMessages, intentCounts] = await Promise.all([
+      prisma.message.count({ where: { tenantId } }),
+      prisma.message.count({ where: { tenantId, createdAt: { gte: today } } }),
+      prisma.message.groupBy({
+        by: ['intent'],
+        where: { tenantId },
+        _count: { intent: true },
+      }),
+    ]);
+
+    const intentBreakdown = {};
+    intentCounts.forEach(({ intent, _count }) => {
+      intentBreakdown[intent] = _count.intent;
+    });
+
+    res.json({ totalMessages, todayMessages, intentBreakdown });
+  } catch (err) {
+    console.error('[Settings] GET /stats error:', err.message);
+    res.status(500).json({ error: 'Server error.' });
+  }
+});
+
 module.exports = router;
